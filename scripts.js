@@ -1,12 +1,11 @@
 
 
-// import { mapboxgl } from "./secrets.js";
 
 var map = new mapboxgl.Map({
   container: 'mapid',
   style: 'mapbox://styles/mapbox/streets-v10',
   center: [ -86.782227, 36.159075], // starting position
-  zoom: 9
+  zoom: 11
 });
 
 map.on('load', function () {
