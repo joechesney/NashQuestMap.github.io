@@ -2,9 +2,15 @@
 export function getPokestops() {
   return new Promise((resolve, reject)=>{
     $.get("https://nashquestmap.firebaseio.com/pokestops.json")
-    .then(pokestops=>{
-      // console.log('all stops: ',pokestops);
-      if(pokestops) resolve(pokestops);
+    .then(pokestopsObject=>{
+      let pokestopsArray = [];
+      Object.keys(pokestopsObject).forEach(key=>{
+        pokestopsObject[key].id = key;
+        pokestopsArray.push(pokestopsObject[key]);
+      })
+      console.log('pokestopsObject: ',pokestopsObject);
+      console.log('pokestopsArray: ',pokestopsArray);
+      if(pokestopsArray.length > 0) resolve(pokestopsArray);
       // else reject(err)
 
     })
