@@ -1,7 +1,10 @@
 import { secrets } from '/secrets.js';
 import { getPokestops } from '/getPokestops.js';
 import { getCurrentDate } from './getCurrentDate.js';
+import { addListeners } from './listeners.js';
+// import { addTask } from './addTask.js';
 firebase.initializeApp(secrets.config);
+addListeners();
 
 getPokestops().then(pokestops=>console.log('all stops 2: ',pokestops));
 
@@ -120,6 +123,12 @@ getPokestops()
       .bindPopup(`
         ${pokestop.name}<br>
         <br><a href="/addTask?${pokestop.id}">Edit Task</a>
+        <form class="addTask">
+          <h1>Create a new user</h1>
+          <input id="${pokestop.id}task" type="text" placeholder="task">
+          <input id="${pokestop.id}reward" type="text" placeholder="reward">
+          <input class="addTaskButton" id="${pokestop.id}" type="submit" value="add task">
+        </form>
       `)
       // .bindTooltip(`
       //   <span>${pokestop.id}</span>
