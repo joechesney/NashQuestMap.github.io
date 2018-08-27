@@ -8,13 +8,12 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+	<link rel="shortcut icon" type="image/x-icon" href="./images/nash-poke-map-favicon.ico" />
 
 	<!-- <link rel="stylesheet" type="text/css" href="stylesheet_responsive.css"> -->
 
 	<link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />
 	<script src="./node_modules/leaflet/dist/leaflet.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/5.3.1/firebase.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 	<style>
@@ -28,38 +27,28 @@
 		}
 	</style>
 
-	<!-- <SCRIPT language="Javascript" type="text/javascript">
-	function doSubmit( event , FocusObject) {
-		const keyCode2 = (window.Event) ? event.which : event.keyCode;
-		const keyCode1 = (window.Event) ? event.keyCode : event.which;
-		if( keyCode1 == 13 || keyCode2 == 13 ) { WriteText(FocusObject); return false; }
-	}
-	</SCRIPT> -->
 	<script src='./secrets.js' type="module"></script>
 	<script src='./getPokestops.js' type="module"></script>
 	<script src='./getCurrentDate.js' type="module"></script>
+	<script src='./getTodaysTasks.js' type="module"></script>
 	<script src='./addTask.js' type="module"></script>
-	<script src='./listeners.js' type="module"></script>
+	<script src='./addNewPokestop.js' type="module"></script>
 </head>
 <body>
 
 <div id='map'></div>
 
+<label for="add-new-pokestop">Add New Pokestop</label>
+<form method="post" name="add-new-pokestop" id="add-new-pokestop-form">
+	<input type="text" placeholder="name" id="add-new-pokestop-name" required>
+	<input type="number" placeholder="latitude" id="add-new-pokestop-latitude" required>
+	<input type="number" placeholder="longitude" id="add-new-pokestop-longitude" required>
+	<input type="submit" value="submit" id="add-new-pokestop-button">
+</form>
+
 
 <script type="module" src="./main.js"></script>
-
-
-<!-- <FORM NAME="form" action="index.php" method="post">
-	<TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
-	<TR><TD VALIGN="MIDDLE">
-		<B style="font-size:12pt; font-family:arial,times;">
-
-		SEARCH:
-		<INPUT TYPE="text" SIZE="35" NAME="SearchField" VALUE="<?php echo $SearchField;?>" OnChange="WriteText('Line04');" onkeypress="return doSubmit(event,'Line04');">
-
-		</B><BR>( e.g. rare|stardust|tangela )
-	</TD></TR></TABLE>
-</FORM> -->
+<script src='./listeners.js' type="module"></script>
 
 </body>
 </html>

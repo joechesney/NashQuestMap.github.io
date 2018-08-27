@@ -8,6 +8,6 @@ export function getCurrentDate() {
   let date = (newDate.getDate()).toString();
   let year = (newDate.getFullYear()).toString();
   const taskDate = month.concat(date, year);
-  // console.log('taskDate',taskDate);
+  console.log('taskDate',taskDate);
   return taskDate;
 }
