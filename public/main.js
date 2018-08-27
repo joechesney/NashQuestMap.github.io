@@ -3,12 +3,7 @@ import { getPokestops } from '/getPokestops.js';
 import { getCurrentDate } from './getCurrentDate.js';
 import { addListeners } from './listeners.js';
 import { getTodaysTasks } from './getTodaysTasks.js';
-addListeners();
-
-// getPokestops().then(pokestops=>console.log('all pokestops in main.js: ',pokestops));
-// getTodaysTasks(getCurrentDate()).then(allTasks => console.log('dem tasks: ',allTasks))
-
-
+addListeners(); // adds event listeners to the page
 
 const greenEgg = L.icon({
   iconUrl: 'node_modules/leaflet/dist/images/marker-icon.png',
