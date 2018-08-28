@@ -100,6 +100,7 @@ getPokestops()
     console.log(`${e.latlng.lat}`);
     console.log(`${e.latlng.lng}`);
     // console.log(getCurrentDate());
+    console.log('Date.now()',Date.now());
     console.log(`-----------`);
     $("#add-new-pokestop-latitude").val(e.latlng.lat);
     $("#add-new-pokestop-longitude").val(e.latlng.lng);

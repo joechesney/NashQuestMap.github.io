@@ -53,30 +53,6 @@ app.get('/getPokestops', (req, res, next) => {
     }
   })
 })
-// WHERE tasks.task_date_end_time > NOW()
-app.get('/getTodaysTasks', (req, res, next) => {
-  // This route pulls submitted tasks from today on page load
-
-
-  connection.query(`
-  SELECT tasks.requirements, tasks.reward, tasks.pokestop_id, pokestops.*,
-  CASE
-    WHEN CONVERT_TZ(tasks.task_date_end_time, 'GMT', 'UTC') > NOW()
-    THEN 'true'
-    ELSE 'false'
-    END active
-  FROM pokestops
-  LEFT JOIN tasks
-  ON tasks.pokestop_id = pokestops.id
-  `, (err, allTasks) =>{
-    if (err) {
-      next(err);
-    } else {
-      console.log('allTasks',allTasks);
-      res.send(allTasks);
-    }
-  })
-})
 
 
 app.post('/addTask/:id', (req, res) => {
@@ -98,9 +74,9 @@ app.post('/addTask/:id', (req, res) => {
       ${req.body.pokestop_id},
       '${req.body.task_date_string}',
       NOW(),
-      '${req.body.task_date_end_time}'
+      CURRENT_DATE() + INTERVAL 1 DAY
     )`;
-  connection.query(sql, function (err, result) {
+    connection.query(sql, function (err, result) {
     if (err) {
       throw err;
     } else {
@@ -144,6 +120,30 @@ app.post('/addNewPokestop', (req, res, next) => {
     });
   }
 })
+// WHERE tasks.task_date_end_time > NOW()
+// app.get('/getTodaysTasks', (req, res, next) => {
+//   // This route pulls submitted tasks from today on page load
+
+
+//   connection.query(`
+//   SELECT tasks.requirements, tasks.reward, tasks.pokestop_id, pokestops.*,
+//   CASE
+//     WHEN CONVERT_TZ(tasks.task_date_end_time, 'GMT', 'UTC') > NOW()
+//     THEN 'true'
+//     ELSE 'false'
+//     END active
+//   FROM pokestops
+//   LEFT JOIN tasks
+//   ON tasks.pokestop_id = pokestops.id
+//   `, (err, allTasks) =>{
+//     if (err) {
+//       next(err);
+//     } else {
+//       console.log('allTasks',allTasks);
+//       res.send(allTasks);
+//     }
+//   })
+// })
 
 // Error handler
 app.use((err, req, res, next ) => {
