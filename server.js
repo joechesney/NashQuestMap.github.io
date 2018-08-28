@@ -25,8 +25,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/getPokestops', (req, res, next) => {
-  // Need to change the * below. Don't need all columns.
-  connection.query(`SELECT * FROM pokestops`, (err, pokestops) =>{
+  // Getting the pokestops also gets the tasks and gives the pokestops
+  // the relationship with the task and also the property on the same object
+  connection.query(`
+  SELECT tasks.requirements, tasks.reward, tasks.pokestop_id, pokestops.*,
+  CASE
+    WHEN tasks.task_date_end_time > NOW()
+    THEN 'true'
+    ELSE 'false'
+    END active
+  FROM pokestops
+  LEFT JOIN tasks
+  ON tasks.pokestop_id = pokestops.id
+  `, (err, pokestops) =>{
     if (err) {
       next(err);
     } else {
@@ -34,13 +45,24 @@ app.get('/getPokestops', (req, res, next) => {
     }
   })
 })
-
-app.get('/getTodaysTasks/:task_date_string', (req, res, next) => {
+// WHERE tasks.task_date_end_time > NOW()
+app.get('/getTodaysTasks', (req, res, next) => {
   // This route pulls submitted tasks from today on page load
-  connection.query(`SELECT * FROM tasks WHERE task_date_string = ${req.params.task_date_string}`, (err, allTasks) =>{
+  connection.query(`
+  SELECT tasks.requirements, tasks.reward, tasks.pokestop_id, pokestops.*,
+  CASE
+    WHEN tasks.task_date_end_time > NOW()
+    THEN 'true'
+    ELSE 'false'
+    END active
+  FROM pokestops
+  LEFT JOIN tasks
+  ON tasks.pokestop_id = pokestops.id
+  `, (err, allTasks) =>{
     if (err) {
       next(err);
     } else {
+      console.log('allTasks',allTasks);
       res.send(allTasks);
     }
   })

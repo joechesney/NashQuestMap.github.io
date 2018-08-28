@@ -74,51 +74,68 @@ map.on('contextmenu', function(e){
 // Need to check run conditions for when there are 0 tasks at all,
 //   one task, many tasks for many pokestops, and multiple tasks
 //   for the same pokestop
-getTodaysTasks(getCurrentDate()).then(todaysTasks=>{
-  console.log('todaysTasks: ',todaysTasks);
+
+// Need a handler for if a task is created for a stop, and then
+// that stop is deleted
+// getTodaysTasks().then(todaysTasks=>{
+  // console.log('todaysTasks: ',todaysTasks);
+  // todaysTasks.forEach(task => task.active = true);
   getPokestops()
   .then(allPokestops=>{
     // need one array of pokestops that have tasks
     // and one array of pokestops with no tasks
-    // const pokestopsWithTasks = allPokestops.filter(pokestop => todaysTasks.map(task => task.pokestop_id === pokestop.id));
-    const pokestopsWithTask = todaysTasks.map(task => allPokestops.filter(stop => task.pokestop_id == stop.id));
-    console.log('pokestopsWithTask', pokestopsWithTask);
+    // const pokestopsWithTasks = allPokestops.filter(pokestop => todaysTasks.map(task =>
 
-    const pokestopsNoTask = todaysTasks.map(task => pokestopsWithTask.filter(stop => task.pokestop_id == stop.id));
-    console.log('pokestopsNoTask', pokestopsNoTask);
 
-    allPokestops.forEach(pokestop => {
       // Tooltip: will be displayed to the side, permanently
       // Popup: this will only be displayed if the user clicks the pindrop
 
-      // if there is a task available for that pokestop, make it red:
-      if(pokestop.chups){
-        const taskReward = todaysTasks.map( task => task.pokestop_id == pokestop.id);
-        L.marker([pokestop.latitude, pokestop.longitude],{icon: redEgg, })
-        .bindPopup(pokestop.name)
-        .bindTooltip(`
-          <span>${taskReward}</span>
-          `,
-          {permanent: true})
-        .addTo(Regular);
-      } else { // These will be opaque blue
-        L.marker([pokestop.latitude, pokestop.longitude], { icon:greenEgg, opacity: 0.2 })
-        .bindPopup(`
-          <br>
-          <br><a href="/addTask?${pokestop.id}">Edit Task</a>
-          <div class="addTask">
-            <h1>${pokestop.name}</h1>
-            <input id="${pokestop.id}task" type="text" placeholder="task" required>
-            <input id="${pokestop.id}reward" type="text" placeholder="reward" required>
-            <input class="addTaskButton" id="${pokestop.id}" type="button" value="add task">
-          </div>
-        `)
-        .addTo(Regular);
 
-      }
+
+      // IVE GOT IT
+      // I need to do a table join.
+      // So join tasks with pokestops where the task.pokestop_id === pokestop.id
+      // and bring back the pokestop columns with it, that way I dont have to
+      // do a double forEach loop in order to find out which pokestops have tasks
+
+
+
+
+
+      // if there is a task available for that pokestop, make it red:
+
+
+      allPokestops.forEach(pokestop => { // These will be opaque blue
+        if(pokestop.active === 'true'){
+
+          L.marker([pokestop.latitude, pokestop.longitude],{icon: redEgg })
+          .bindPopup(pokestop.name)
+          .bindTooltip(`
+            <span>${pokestop.reward}</span>
+            <br>
+            <span>${pokestop.requirements}</span>
+            `,
+            {permanent: true})
+          .addTo(Active);
+
+        } else {
+
+          L.marker([pokestop.latitude, pokestop.longitude], { icon:greenEgg, opacity: 0.2 })
+          .bindPopup(`
+            <br>
+            <br><a href="/addTask?${pokestop.id}">Edit Task</a>
+            <div class="addTask">
+              <h1>${pokestop.name}</h1>
+              <input id="${pokestop.id}task" type="text" placeholder="task" required>
+              <input id="${pokestop.id}reward" type="text" placeholder="reward" required>
+              <input class="addTaskButton" id="${pokestop.id}" type="button" value="add task">
+            </div>
+          `)
+          .addTo(Regular);
+        }
     });
-  })
-})
+  });
+// })
 
 // This was the original code from PHP project:
 
