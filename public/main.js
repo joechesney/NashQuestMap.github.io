@@ -1,6 +1,5 @@
 import { secrets } from '/secrets.js';
 import { getPokestops } from '/getPokestops.js';
-import { getCurrentDate } from './getCurrentDate.js';
 import { addListeners } from './listeners.js';
 addListeners(); // adds event listeners to the page
 
@@ -25,9 +24,10 @@ var Regular = L.layerGroup();
 
 var Active = L.layerGroup();
 // L.marker([0,0],{opacity: 1.0}).bindPopup('TEST').addTo(Active);
-
+console.log('new Date()',new Date());
 getPokestops()
 .then(allPokestops=>{
+  console.log('allPokestops',allPokestops);
   // Tooltip: will be displayed to the side, permanently
   // Popup: this will only be displayed if the user clicks the pindrop
   // if there is a task available for that pokestop, make it red:
@@ -96,14 +96,14 @@ getPokestops()
 
   L.control.layers(baseLayers, overlays).addTo(map);
 
-  // map.on('click', (e)=>{
-  //   console.log(`${e.latlng.lat}`);
-  //   console.log(`${e.latlng.lng}`);
-  //   console.log(getCurrentDate());
-  //   console.log(`-----------`);
-  //   $("#add-new-pokestop-latitude").val(e.latlng.lat);
-  //   $("#add-new-pokestop-longitude").val(e.latlng.lng);
-  // })
+  map.on('click', (e)=>{
+    console.log(`${e.latlng.lat}`);
+    console.log(`${e.latlng.lng}`);
+    // console.log(getCurrentDate());
+    console.log(`-----------`);
+    $("#add-new-pokestop-latitude").val(e.latlng.lat);
+    $("#add-new-pokestop-longitude").val(e.latlng.lng);
+  })
 });
 
 

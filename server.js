@@ -27,10 +27,18 @@ app.use(bodyParser.json());
 app.get('/getPokestops', (req, res, next) => {
   // Getting the pokestops also gets the tasks and gives the pokestops
   // the relationship with the task and also the property on the same object
+  const timeRightNow = new Date().toISOString();
+  console.log('timeRightNow',timeRightNow);
+  // tasks are submitted with UMT times, not local time zone times
   connection.query(`
-  SELECT tasks.requirements, tasks.reward, tasks.pokestop_id, pokestops.*,
+  SELECT
+  tasks.requirements,
+  tasks.reward,
+  tasks.pokestop_id,
+  tasks.task_date_end_time,
+  pokestops.*,
   CASE
-    WHEN tasks.task_date_end_time > NOW()
+    WHEN tasks.task_date_end_time > '${timeRightNow}'
     THEN 'true'
     ELSE 'false'
     END active
@@ -48,10 +56,12 @@ app.get('/getPokestops', (req, res, next) => {
 // WHERE tasks.task_date_end_time > NOW()
 app.get('/getTodaysTasks', (req, res, next) => {
   // This route pulls submitted tasks from today on page load
+
+
   connection.query(`
   SELECT tasks.requirements, tasks.reward, tasks.pokestop_id, pokestops.*,
   CASE
-    WHEN tasks.task_date_end_time > NOW()
+    WHEN CONVERT_TZ(tasks.task_date_end_time, 'GMT', 'UTC') > NOW()
     THEN 'true'
     ELSE 'false'
     END active
@@ -87,7 +97,7 @@ app.post('/addTask/:id', (req, res) => {
       '${req.body.reward}',
       ${req.body.pokestop_id},
       '${req.body.task_date_string}',
-      '${req.body.task_date_and_submission_time}',
+      NOW(),
       '${req.body.task_date_end_time}'
     )`;
   connection.query(sql, function (err, result) {
@@ -122,7 +132,7 @@ app.post('/addNewPokestop', (req, res, next) => {
         '${req.body.name}',
         ${req.body.latitude},
         ${req.body.longitude},
-        '${req.body.date_submitted}'
+        NOW()
       )`;
     connection.query(sql, function (err, result) {
       if (err) {
