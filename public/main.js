@@ -2,21 +2,18 @@ import { secrets } from '/secrets.js';
 import { getPokestops } from '/getPokestops.js';
 import { getCurrentDate } from './getCurrentDate.js';
 import { addListeners } from './listeners.js';
-import { getTodaysTasks } from './getTodaysTasks.js';
 addListeners(); // adds event listeners to the page
 
-const greenEgg = L.icon({
+const bluePin = L.icon({
   iconUrl: 'node_modules/leaflet/dist/images/marker-icon.png',
-
   iconSize:      [21, 35], // size of the icon
   iconAnchor:    [18, 41], // point of the icon which will correspond to marker's location
   popupAnchor:   [-7, -40],  // point from which the popup should open relative to the iconAnchor
   tooltipAnchor: [10, -20]
 });
 
-const redEgg = L.icon({
+const redPin = L.icon({
   iconUrl: './images/red-pin.png',
-
   iconSize:      [21, 35], // size of the icon
   iconAnchor:    [18, 41], // point of the icon which will correspond to marker's location
   popupAnchor:   [-7, -40],  // point from which the popup should open relative to the iconAnchor
@@ -36,10 +33,10 @@ const mbAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> cont
 const grayscale   = L.tileLayer(mbUrl, {id: 'mapbox.light', attribution: mbAttr}),
   streets  = L.tileLayer(mbUrl, {id: 'mapbox.streets',   attribution: mbAttr});
 
-const map = L.map('map', {
+let map = L.map('map', {
   center: [36.1497012,-86.8144697],
   zoom: 18,
-  layers: [streets, Active, Regular]
+  layers: [grayscale, Active, Regular]
 });
 
 const baseLayers = {
@@ -48,10 +45,11 @@ const baseLayers = {
 };
 
 const overlays = {
-  "Active Study": Active,
+  "Active Task": Active,
   "Inactive": Regular
 };
 
+L.control.layers(baseLayers, overlays).addTo(map);
 
 map.on('click', (e)=>{
   console.log(`${e.latlng.lat}`);
@@ -61,14 +59,6 @@ map.on('click', (e)=>{
   $("#add-new-pokestop-latitude").val(e.latlng.lat);
   $("#add-new-pokestop-longitude").val(e.latlng.lng);
 })
-L.control.layers(baseLayers, overlays).addTo(map);
-
-map.on('contextmenu', function(e){
-  console.log('e: ', e);
-  if (e.button == 2) {
-    console.log('held click');
-  }
-});
 
 
 // Need to check run conditions for when there are 0 tasks at all,
@@ -80,11 +70,6 @@ map.on('contextmenu', function(e){
 
 getPokestops()
 .then(allPokestops=>{
-  // need one array of pokestops that have tasks
-  // and one array of pokestops with no tasks
-  // const pokestopsWithTasks = allPokestops.filter(pokestop => todaysTasks.map(task =>
-
-
   // Tooltip: will be displayed to the side, permanently
   // Popup: this will only be displayed if the user clicks the pindrop
 
@@ -92,8 +77,8 @@ getPokestops()
   allPokestops.forEach(pokestop => { // These will be opaque blue
     if(pokestop.active === 'true'){
 
-      L.marker([pokestop.latitude, pokestop.longitude],{icon: redEgg })
-      // .bindPopup(`<span>pokestop.name</span>`)
+      L.marker([pokestop.latitude, pokestop.longitude],{icon: redPin })
+      .bindPopup(`<span>pokestop.name</span>`)
       .bindTooltip(`
         <span>${pokestop.reward}</span>
         <br>
@@ -102,20 +87,36 @@ getPokestops()
         {permanent: true})
       .addTo(Active);
 
+    }
+    if (pokestop.active === 'false') {
+
+            L.marker([pokestop.latitude, pokestop.longitude],
+              { icon:bluePin, opacity: 0.2 })
+            .bindPopup(`
+              <br>
+              <div class="addTask">
+                <h1>${pokestop.name}</h1>
+                <input id="${pokestop.id}task" type="text" placeholder="task" required>
+                <input id="${pokestop.id}reward" type="text" placeholder="reward" required>
+                <input class="addTaskButton" id="${pokestop.id}" type="button" value="add task">
+              </div>
+            `)
+            .addTo(Regular);
+
     } else {
 
-      L.marker([pokestop.latitude, pokestop.longitude], { icon:greenEgg, opacity: 0.2 })
-      .bindPopup(`
-        <br>
-        <br>
-        <div class="addTask">
-          <h1>${pokestop.name}</h1>
-          <input id="${pokestop.id}task" type="text" placeholder="task" required>
-          <input id="${pokestop.id}reward" type="text" placeholder="reward" required>
-          <input class="addTaskButton" id="${pokestop.id}" type="button" value="add task">
+      L.marker([pokestop.latitude, pokestop.longitude],
+        { icon:bluePin, opacity: 0.2 })
+        .bindPopup(`
+        <div>
+          <br>
+          <b>${pokestop.requirements}</b>
+          <b>${pokestop.reward}</b>
+          <a href="" id="${pokestop.id}editTaskButton">edit</a>
         </div>
-      `)
-      .addTo(Regular);
+        `).addTo(Active)
+
+
     }
   });
 });
