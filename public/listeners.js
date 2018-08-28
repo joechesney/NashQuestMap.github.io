@@ -27,7 +27,6 @@ export function addListeners() {
   })
 
   $(document).on("click", e => {
-    e.preventDefault();
     if (e.target.className === "addTaskButton") {
       // should create functions that make these time strings
       let taskObject = {
@@ -43,6 +42,5 @@ export function addListeners() {
         console.log('result', result);
       })
     }
-
   })
 }
