@@ -15,27 +15,25 @@ export function addListeners() {
     addNewPokestop(newPokeStopObject)
     .then(result => {
       console.log('result of addNewPokestop', result);
-      // probably should clear input fields and reload page here?
-      // or just have it render this new pokestop right away?
-      // should make a function that takes in pokestop object
-      //   and prints it to the screen, rather than having it loop
-      //   over an array of pokestops and manually print them
       $(`#add-new-pokestop-name`).val("");
       $(`#add-new-pokestop-latitude`).val("");
       $(`#add-new-pokestop-longitude`).val("");
+      location.reload();
     })
   })
 
   $(document).on("click", e => {
     if (e.target.className === "addTaskButton") {
-      // should create functions that make these time strings
+      // the two object properties commented out below have been replaced
+      // by actual mySQL time methods server-side. I left them commented
+      // out just to clarify in this file that they are still being inserted
       let taskObject = {
         requirements: $(`#${e.target.id}task`).val(),
         reward: $(`#${e.target.id}reward`).val(),
         pokestop_id: +e.target.id,
         task_date_string: getCurrentDate(),
-        task_date_and_submission_time: new Date().toISOString().slice(0, 19).replace('T', ' '),
-        task_date_end_time: new Date().toISOString().slice(0, 8) + (new Date().getUTCDate() + 1) + " 00:00:00",
+        // task_date_and_submission_time: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        // task_date_end_time: new Date().toISOString().slice(0, 8) + (new Date().getUTCDate() + 1) + " 00:00:00",
       };
       addTask(taskObject)
       .then(result => {

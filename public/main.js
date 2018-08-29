@@ -32,41 +32,51 @@ getPokestops()
   // Popup: this will only be displayed if the user clicks the pindrop
   // if there is a task available for that pokestop, make it red:
   allPokestops.forEach(pokestop => { // These will be opaque blue
+
+    /*
+      3 cases here:
+      1. if the pokestop has a task, it is given a red pin
+      2. if the pokestop does not have a task, it is given a blue pin
+      3.
+    */
     if(pokestop.active === 'true'){
       L.marker([pokestop.latitude, pokestop.longitude],{icon: redPin })
-      .bindPopup(`<span>pokestop.name</span>`)
+      .bindPopup(`
+      <span><h3>${pokestop.name}</h3></span><br>
+      <span>Task: ${pokestop.requirements}</span><br>
+      <span>Reward: ${pokestop.reward}</span><br>
+
+      `)
       .bindTooltip(`
         <span>${pokestop.reward}</span>
-        <br>
-        <span>${pokestop.requirements}</span>
         `,
         {permanent: true})
       .addTo(Active);
-    }
-    if (pokestop.active === 'false') {
-            L.marker([pokestop.latitude, pokestop.longitude],
-              { icon:bluePin, opacity: 0.2 })
-            .bindPopup(`
-              <br>
-              <div class="addTask">
-                <h1>${pokestop.name}</h1>
-                <input id="${pokestop.id}task" type="text" placeholder="task" required>
-                <input id="${pokestop.id}reward" type="text" placeholder="reward" required>
-                <input class="addTaskButton" id="${pokestop.id}" type="button" value="add task">
-              </div>
-            `)
-            .addTo(Regular);
-    } else {
+    } else if (pokestop.active === 'false') {
       L.marker([pokestop.latitude, pokestop.longitude],
         { icon:bluePin, opacity: 0.2 })
-        .bindPopup(`
-        <div>
-          <br>
-          <b>${pokestop.requirements}</b>
-          <b>${pokestop.reward}</b>
-          <a href="" id="${pokestop.id}editTaskButton">edit</a>
+      .bindPopup(`
+        <br>
+        <div class="addTask">
+          <h1>${pokestop.name}</h1>
+          <input id="${pokestop.id}task" type="text" placeholder="task" required>
+          <input id="${pokestop.id}reward" type="text" placeholder="reward" required>
+          <input class="addTaskButton" id="${pokestop.id}" type="button" value="add task">
         </div>
-        `).addTo(Active)
+      `)
+      .addTo(Regular);
+    } else {
+      console.log('3rd condition',pokestop);
+      // L.marker([pokestop.latitude, pokestop.longitude],
+      //   { icon:bluePin, opacity: 0.2 })
+      //   .bindPopup(`
+      //   <div>
+      //     <br>
+      //     <b>${pokestop.requirements}</b>
+      //     <b>${pokestop.reward}</b>
+
+      //   </div>
+      //   `).addTo(Active)
     }
   });
 

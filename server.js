@@ -32,19 +32,25 @@ app.get('/getPokestops', (req, res, next) => {
   // tasks are submitted with UMT times, not local time zone times
   connection.query(`
   SELECT
-  tasks.requirements,
-  tasks.reward,
-  tasks.pokestop_id,
-  tasks.task_date_end_time,
   pokestops.*,
-  CASE
-    WHEN tasks.task_date_end_time > NOW()
-    THEN 'true'
-    ELSE 'false'
-    END active
+
+    tasks.requirements,
+    tasks.reward,
+    tasks.pokestop_id,
+    tasks.task_date_end_time,
+    tasks.id AS task_id,
+    CASE
+      WHEN tasks.task_date_end_time > NOW()
+      THEN 'true'
+      ELSE 'false'
+      END active
+
+
   FROM pokestops
   LEFT JOIN tasks
   ON tasks.pokestop_id = pokestops.id
+  AND tasks.task_date_end_time > NOW()
+
   `, (err, pokestops) =>{
     if (err) {
       next(err);
