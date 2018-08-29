@@ -40,6 +40,7 @@ export function addListeners() {
       addTask(taskObject)
       .then(result => {
         console.log('result', result);
+        location.reload();
       })
     }
   })

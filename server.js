@@ -38,7 +38,7 @@ app.get('/getPokestops', (req, res, next) => {
   tasks.task_date_end_time,
   pokestops.*,
   CASE
-    WHEN tasks.task_date_end_time > '${timeRightNow}'
+    WHEN tasks.task_date_end_time > NOW()
     THEN 'true'
     ELSE 'false'
     END active
