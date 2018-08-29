@@ -44,8 +44,6 @@ app.get('/getPokestops', (req, res, next) => {
       THEN 'true'
       ELSE 'false'
       END active
-
-
   FROM pokestops
   LEFT JOIN tasks
   ON tasks.pokestop_id = pokestops.id

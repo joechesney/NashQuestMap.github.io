@@ -25,27 +25,22 @@ var Regular = L.layerGroup();
 var Active = L.layerGroup();
 // L.marker([0,0],{opacity: 1.0}).bindPopup('TEST').addTo(Active);
 console.log('new Date()',new Date());
+
+
 getPokestops()
 .then(allPokestops=>{
   console.log('allPokestops',allPokestops);
   // Tooltip: will be displayed to the side, permanently
   // Popup: this will only be displayed if the user clicks the pindrop
   // if there is a task available for that pokestop, make it red:
-  allPokestops.forEach(pokestop => { // These will be opaque blue
-
-    /*
-      3 cases here:
-      1. if the pokestop has a task, it is given a red pin
-      2. if the pokestop does not have a task, it is given a blue pin
-      3.
-    */
+  // otherwise, make it opaque blue
+  allPokestops.forEach(pokestop => {
     if(pokestop.active === 'true'){
       L.marker([pokestop.latitude, pokestop.longitude],{icon: redPin })
       .bindPopup(`
-      <span><h3>${pokestop.name}</h3></span><br>
+      <span><b>${pokestop.name}</b></span><br>
       <span>Task: ${pokestop.requirements}</span><br>
       <span>Reward: ${pokestop.reward}</span><br>
-
       `)
       .bindTooltip(`
         <span>${pokestop.reward}</span>
@@ -66,17 +61,7 @@ getPokestops()
       `)
       .addTo(Regular);
     } else {
-      console.log('3rd condition',pokestop);
-      // L.marker([pokestop.latitude, pokestop.longitude],
-      //   { icon:bluePin, opacity: 0.2 })
-      //   .bindPopup(`
-      //   <div>
-      //     <br>
-      //     <b>${pokestop.requirements}</b>
-      //     <b>${pokestop.reward}</b>
-
-      //   </div>
-      //   `).addTo(Active)
+      console.log('3rd condition. Neither false nor true for active task ', pokestop);
     }
   });
 
@@ -90,14 +75,28 @@ getPokestops()
 
   var map = L.map('map', {
     center: [36.1497012,-86.8144697],
-    zoom: 18,
+    zoom: 17,
     layers: [grayscale, Active, Regular]
   });
 
+  // This line centers the map on the users location if they accept geolocation
+  map.locate({setView: true, maxZoom: 16});
+
+  function onLocationFound(e) {
+    // This function shows a marker and circle around your current location
+    // It was cool that it worked, but its pretty pointless tbh
+    console.log('event:', e);
+    var radius = e.accuracy / 2;
+    L.marker(e.latlng).addTo(map)
+      .bindPopup("You are within " + radius + " meters from this point").openPopup();
+    L.circle(e.latlng, radius).addTo(map);
+  }
+  // map.on('locationfound', onLocationFound);
   var baseLayers = {
     "Grayscale": grayscale,
     "Streets": streets
   };
+
 
   var overlays = {
     "Active Task": Active,
