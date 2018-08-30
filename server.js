@@ -4,6 +4,9 @@ const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
+
+
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -54,7 +57,6 @@ app.get('/getPokestops', (req, res, next) => {
     }
   })
 })
-
 
 app.post('/addTask/:id', (req, res) => {
   // This route sends a user-submitted task as a POST request
@@ -123,12 +125,37 @@ app.post('/addNewPokestop', (req, res, next) => {
 })
 app.post('/changeRequest', (req, res, next) => {
   // This endpoint will send me an email with any requested changes
-
   console.log('req :', req.body);
-  res.sendStatus(200);
+  const server_secrets = require('./server_secrets.js');
+  console.log('server_secrets',server_secrets);
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: `${server_secrets.literallyNothing}`,
+      pass: `${server_secrets.randomVariable}`
+    }
+  });
+  const mailOptions = {
+    from: `${req.body.userEmail}`,
+    to: `${server_secrets.literallyNothing}`,
+    subject: "CHANGE REQUEST FROM NASHQUESTMAP",
+    html: `
+    Message from some dear Pokemon friend named ${req.body.userEmail},<br>
+    They said:<br>
+    <br>
+    ${req.body.changesRequested}`
+  };
+  console.log('mailOptions',mailOptions);
+  transporter.sendMail(mailOptions, function(err, info){
+    if(err){
+      next(err);
+    } else {
+      console.log('info: ',info);
+      res.sendStatus(200);
+    }
+  })
 
 })
-
 
 // Error handler
 app.use((err, req, res, next ) => {
