@@ -121,30 +121,14 @@ app.post('/addNewPokestop', (req, res, next) => {
     });
   }
 })
-// WHERE tasks.task_date_end_time > NOW()
-// app.get('/getTodaysTasks', (req, res, next) => {
-//   // This route pulls submitted tasks from today on page load
+app.post('/changeRequest', (req, res, next) => {
+  // This endpoint will send me an email with any requested changes
 
+  console.log('req :', req.body);
+  res.sendStatus(200);
 
-//   connection.query(`
-//   SELECT tasks.requirements, tasks.reward, tasks.pokestop_id, pokestops.*,
-//   CASE
-//     WHEN CONVERT_TZ(tasks.task_date_end_time, 'GMT', 'UTC') > NOW()
-//     THEN 'true'
-//     ELSE 'false'
-//     END active
-//   FROM pokestops
-//   LEFT JOIN tasks
-//   ON tasks.pokestop_id = pokestops.id
-//   `, (err, allTasks) =>{
-//     if (err) {
-//       next(err);
-//     } else {
-//       console.log('allTasks',allTasks);
-//       res.send(allTasks);
-//     }
-//   })
-// })
+})
+
 
 // Error handler
 app.use((err, req, res, next ) => {
