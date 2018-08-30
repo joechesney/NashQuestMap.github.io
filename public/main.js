@@ -1,7 +1,35 @@
 import { secrets } from '/secrets.js';
 import { getPokestops } from '/getPokestops.js';
 import { addListeners } from './listeners.js';
+import { rewardSearch } from './rewardSearch.js';
+
 addListeners(); // adds event listeners to the page
+
+$("#reward-search-button").on("click", function() {
+  console.log('query mug: ',$("#reward-search").val());
+  rewardSearch($("#reward-search").val())
+  .then(results => {
+    console.log('results of query',results);
+    Active.clearLayers();
+    results.forEach(pokestop => {
+      if(pokestop.active === 'true'){
+        L.marker([pokestop.latitude, pokestop.longitude],{icon: redPin })
+        .bindPopup(`
+        <span><b>${pokestop.name}</b></span><br>
+        <span>Task: ${pokestop.requirements}</span><br>
+        <span>Reward: ${pokestop.reward}</span><br>
+        `)
+        .bindTooltip(`
+          <span>${pokestop.reward}</span>
+          `,
+          {permanent: true})
+        .addTo(Active);
+      } else {
+        console.log('',);
+      }
+    })
+  })
+});
 
 var bluePin = L.icon({
   iconUrl: 'node_modules/leaflet/dist/images/marker-icon.png',
@@ -20,12 +48,8 @@ var redPin = L.icon({
 });
 
 var Regular = L.layerGroup();
-// L.marker([0,0],{opacity: 1.0}).bindPopup('TEST').addTo(Regular);
 
 var Active = L.layerGroup();
-// L.marker([0,0],{opacity: 1.0}).bindPopup('TEST').addTo(Active);
-console.log('new Date()',new Date());
-
 
 getPokestops()
 .then(allPokestops=>{

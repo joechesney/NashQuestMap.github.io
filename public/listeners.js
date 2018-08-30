@@ -1,6 +1,7 @@
 import { addTask } from './addTask.js';
 import { addNewPokestop } from './addNewPokestop.js';
 import { getCurrentDate } from './getCurrentDate.js';
+import { rewardSearch } from './rewardSearch.js';
 export function addListeners() {
 
   $("#add-new-pokestop-button").on("click", (e) => {
@@ -21,6 +22,7 @@ export function addListeners() {
       location.reload();
     })
   })
+
 
   $(document).on("click", e => {
     if (e.target.className === "addTaskButton") {
