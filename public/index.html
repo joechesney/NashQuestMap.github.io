@@ -3,18 +3,18 @@
 <html>
 <head>
 
-	<title>NashQuestMap</title>
+	<title>PogoTaskMap</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="shortcut icon" type="image/x-icon" href="./images/nash-poke-map-favicon.ico" />
 
-
-	<!-- <link rel="stylesheet" type="text/css" href="stylesheet_responsive.css"> -->
-
 	<link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />
+	<link rel="stylesheet" href="./node_modules/leaflet.locatecontrol/dist/L.Control.Locate.css" />
+
 	<script src="./node_modules/leaflet/dist/leaflet.js"></script>
+	<script src="./node_modules/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
 	<script src="node_modules/jquery/dist/jquery.min.js"></script>
 
 	<style>
@@ -25,6 +25,15 @@
 		html, body, #map {
 			height: 95%;
 			width: 100vw;
+		}
+		.my-location-image {
+			width: 90%;
+			display: block;
+			margin: auto;
+		}
+		.about-this-site {
+			float: right;
+			padding: 1rem;
 		}
 	</style>
 
@@ -48,13 +57,7 @@
 	</form>
 	<a class="about-this-site" href="./about.html">About this site</a>
 </div>
-<style>
-	.about-this-site {
-		float: right;
-		padding: 1rem;
-		/* margin: 1rem; */
-	}
-</style>
+
 <script type="module" src="./main.js"></script>
 <script src='./listeners.js' type="module"></script>
 

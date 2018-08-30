@@ -80,8 +80,9 @@ getPokestops()
   });
 
   // This line centers the map on the users location if they accept geolocation
-  map.locate({setView: true, maxZoom: 16});
-
+  // map.locate({setView: true, maxZoom: 16});
+  L.control.locate({drawCircle: false, icon: "actually-good-my-location-icon"}).addTo(map);
+  $(".actually-good-my-location-icon").append("<img class='my-location-image'  src='./images/my_location_grey.png' />")
   function onLocationFound(e) {
     // This function shows a marker and circle around your current location
     // It was cool that it worked, but its pretty pointless tbh
@@ -96,7 +97,6 @@ getPokestops()
     "Grayscale": grayscale,
     "Streets": streets
   };
-
 
   var overlays = {
     "Active Task": Active,

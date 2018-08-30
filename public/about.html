@@ -62,8 +62,6 @@
         userEmail: $("#user-email").val(),
         changesRequested: $("#changes-requested").val()
       }
-
-      console.log('changeRequestObject: ',changeRequestObject);
       sendChangeRequestEmail(changeRequestObject)
       .then(response =>{
         console.log('response: ',response);
