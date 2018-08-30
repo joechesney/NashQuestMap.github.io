@@ -33,7 +33,7 @@
 		}
 		.about-this-site {
 			float: right;
-			padding: 1rem;
+			padding-right: 1rem;
 		}
 	</style>
 
@@ -50,12 +50,12 @@
 <label for="add-new-pokestop">Add New Pokestop</label>
 <div>
 	<form method="post" name="add-new-pokestop" id="add-new-pokestop-form">
-		<input type="text" placeholder="name" id="add-new-pokestop-name" required>
 		<input type="number" placeholder="latitude" id="add-new-pokestop-latitude" required>
 		<input type="number" placeholder="longitude" id="add-new-pokestop-longitude" required>
+		<input type="text" placeholder="name" id="add-new-pokestop-name" required>
 		<input type="submit" value="submit" id="add-new-pokestop-button">
+		<a class="about-this-site" href="./about.html">About this site</a>
 	</form>
-	<a class="about-this-site" href="./about.html">About this site</a>
 </div>
 
 <script type="module" src="./main.js"></script>
