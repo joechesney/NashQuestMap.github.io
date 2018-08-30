@@ -25,11 +25,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/getPokestops', (req, res, next) => {
-  // Getting the pokestops also gets the tasks and gives the pokestops
+  // Getting the pokestops also gets the active tasks and gives the pokestops
   // the relationship with the task and also the property on the same object
-  const timeRightNow = new Date().toISOString();
-  console.log('timeRightNow',timeRightNow);
-  // tasks are submitted with UMT times, not local time zone times
+
   connection.query(`
   SELECT
   pokestops.*,
@@ -48,7 +46,6 @@ app.get('/getPokestops', (req, res, next) => {
   LEFT JOIN tasks
   ON tasks.pokestop_id = pokestops.id
   AND tasks.task_date_end_time > NOW()
-
   `, (err, pokestops) =>{
     if (err) {
       next(err);

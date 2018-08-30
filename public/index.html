@@ -10,6 +10,7 @@
 
 	<link rel="shortcut icon" type="image/x-icon" href="./images/nash-poke-map-favicon.ico" />
 
+
 	<!-- <link rel="stylesheet" type="text/css" href="stylesheet_responsive.css"> -->
 
 	<link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />
@@ -38,14 +39,22 @@
 <div id='map'></div>
 
 <label for="add-new-pokestop">Add New Pokestop</label>
-<form method="post" name="add-new-pokestop" id="add-new-pokestop-form">
-	<input type="text" placeholder="name" id="add-new-pokestop-name" required>
-	<input type="number" placeholder="latitude" id="add-new-pokestop-latitude" required>
-	<input type="number" placeholder="longitude" id="add-new-pokestop-longitude" required>
-	<input type="submit" value="submit" id="add-new-pokestop-button">
-</form>
-
-
+<div>
+	<form method="post" name="add-new-pokestop" id="add-new-pokestop-form">
+		<input type="text" placeholder="name" id="add-new-pokestop-name" required>
+		<input type="number" placeholder="latitude" id="add-new-pokestop-latitude" required>
+		<input type="number" placeholder="longitude" id="add-new-pokestop-longitude" required>
+		<input type="submit" value="submit" id="add-new-pokestop-button">
+	</form>
+	<a class="about-this-site" href="./about.html">About this site</a>
+</div>
+<style>
+	.about-this-site {
+		float: right;
+		padding: 1rem;
+		/* margin: 1rem; */
+	}
+</style>
 <script type="module" src="./main.js"></script>
 <script src='./listeners.js' type="module"></script>
 
