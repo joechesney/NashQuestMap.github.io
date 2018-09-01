@@ -27,6 +27,39 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.get('/rewardSearch/', (req, res, next) => {
+  // This basically does what the getPokestops endpoint does, except
+  // that it is a much narrower result
+  // I am using the LIKE keyword for the mysql statement,
+  // and surrounding it by the % wildcard character, which
+  // can retrieve slowly if my database gets huge.
+  // an alternative keyword would be INSTR, or LOCATE, if need be
+
+  connection.query(`
+  SELECT
+  pokestops.*,
+    tasks.requirements,
+    tasks.reward,
+    tasks.pokestop_id,
+    tasks.task_date_end_time,
+    tasks.id AS task_id,
+    CASE
+      WHEN tasks.reward LIKE '%${req.query.task_reward}%'
+      THEN 'true'
+      ELSE 'false'
+      END active
+  FROM pokestops
+  LEFT JOIN tasks
+  ON tasks.pokestop_id = pokestops.id
+  AND tasks.task_date_end_time > NOW()
+  `, (err, pokestops) =>{
+    if (err) {
+      next(err);
+    } else {
+      res.send(pokestops);
+    }
+  })
+})
 app.get('/getPokestops', (req, res, next) => {
   // Getting the pokestops also gets the active tasks and gives the pokestops
   // the relationship with the task and also the property on the same object
@@ -125,7 +158,7 @@ app.post('/addNewPokestop', (req, res, next) => {
 })
 app.post('/changeRequest', (req, res, next) => {
   // This endpoint will send me an email with any requested changes
-  console.log('req :', req.body);
+  // console.log('req :', req.body);
   const server_secrets = require('./server_secrets.js');
   console.log('server_secrets',server_secrets);
   const transporter = nodemailer.createTransport({

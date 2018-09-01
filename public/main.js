@@ -1,7 +1,7 @@
 import { secrets } from '/secrets.js';
-import { getPokestops } from '/getPokestops.js';
-import { addListeners } from './listeners.js';
-import { rewardSearch } from './rewardSearch.js';
+import { getPokestops } from './js/getPokestops.js';
+import { addListeners } from './js/listeners.js';
+import { rewardSearch } from './js/rewardSearch.js';
 
 addListeners(); // adds event listeners to the page
 
