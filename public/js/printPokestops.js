@@ -27,8 +27,6 @@ export function printPokestops(pokestopsArray, specialObject, searchBool) {
         </div>
       `)
       .addTo(specialObject.Regular);
-    } else {
-      console.log('3rd condition. Neither false nor true for active task ', pokestop);
     }
   });
 };
