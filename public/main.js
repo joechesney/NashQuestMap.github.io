@@ -10,23 +10,9 @@ $("#reward-search-button").on("click", function() {
   rewardSearch($("#reward-search").val())
   .then(results => {
     console.log('results of query',results);
-    Active.clearLayers();
+    Active.clearLayers(); //Maybe should remove Regular layer too?
     results.forEach(pokestop => {
-      if(pokestop.active === 'true'){
-        L.marker([pokestop.latitude, pokestop.longitude],{icon: redPin })
-        .bindPopup(`
-        <span><b>${pokestop.name}</b></span><br>
-        <span>Task: ${pokestop.requirements}</span><br>
-        <span>Reward: ${pokestop.reward}</span><br>
-        `)
-        .bindTooltip(`
-          <span>${pokestop.reward}</span>
-          `,
-          {permanent: true})
-        .addTo(Active);
-      } else {
-        console.log('',);
-      }
+      printPokestops(results, specialObject, true);
     })
   })
 });
@@ -51,6 +37,9 @@ var Regular = L.layerGroup();
 
 var Active = L.layerGroup();
 
+let specialObject = { bluePin, redPin, Regular, Active };
+
+import { printPokestops } from './js/printPokestops.js';
 getPokestops()
 .then(allPokestops=>{
   console.log('allPokestops',allPokestops);
@@ -58,36 +47,7 @@ getPokestops()
   // Popup: this will only be displayed if the user clicks the pindrop
   // if there is a task available for that pokestop, make it red:
   // otherwise, make it opaque blue
-  allPokestops.forEach(pokestop => {
-    if(pokestop.active === 'true'){
-      L.marker([pokestop.latitude, pokestop.longitude],{icon: redPin })
-      .bindPopup(`
-      <span><b>${pokestop.name}</b></span><br>
-      <span>Task: ${pokestop.requirements}</span><br>
-      <span>Reward: ${pokestop.reward}</span><br>
-      `)
-      .bindTooltip(`
-        <span>${pokestop.reward}</span>
-        `,
-        {permanent: true})
-      .addTo(Active);
-    } else if (pokestop.active === 'false') {
-      L.marker([pokestop.latitude, pokestop.longitude],
-        { icon:bluePin, opacity: 0.2 })
-      .bindPopup(`
-        <br>
-        <div class="addTask">
-          <h1>${pokestop.name}</h1>
-          <input id="${pokestop.id}task" type="text" placeholder="task" required>
-          <input id="${pokestop.id}reward" type="text" placeholder="reward" required>
-          <input class="addTaskButton" id="${pokestop.id}" type="button" value="add task">
-        </div>
-      `)
-      .addTo(Regular);
-    } else {
-      console.log('3rd condition. Neither false nor true for active task ', pokestop);
-    }
-  });
+  printPokestops(allPokestops, specialObject, false);
 
 
 
