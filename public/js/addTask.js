@@ -8,8 +8,6 @@ export function addTask(taskObject) {
       xhrFields: {
         withCredentials: false
       },
-      // headers: {
-      // },
       data: taskObject,
       success: function (data) {
         console.log('Success', data);
