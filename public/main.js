@@ -26,7 +26,7 @@ const Regular = L.layerGroup();
 const Active = L.layerGroup();
 
 
-
+// This object is used just to pass in these variables to the printPokestops function
 let specialObject = { bluePin, redPin, Regular, Active };
 
 $("#reward-search-button").on("click", function () {
@@ -35,9 +35,7 @@ $("#reward-search-button").on("click", function () {
     .then(results => {
       console.log('results of query', results);
       Active.clearLayers(); //Maybe should remove Regular layer too?
-      results.forEach(pokestop => {
-        printPokestops(results, specialObject, true);
-      })
+      printPokestops(results, specialObject, true);
     })
 });
 
