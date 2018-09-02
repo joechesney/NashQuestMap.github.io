@@ -1,6 +1,10 @@
 
 
 export function printPokestops(pokestopsArray, specialObject, searchBool) {
+  // Tooltip: will be displayed to the side, permanently
+  // Popup: this will only be displayed if the user clicks the pindrop
+  // if there is a task available for that pokestop, make it red:
+  // otherwise, make it opaque blue
   pokestopsArray.forEach(pokestop => {
     if(pokestop.active === 'true'){
       L.marker([pokestop.latitude, pokestop.longitude],{icon: specialObject.redPin })

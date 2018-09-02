@@ -44,13 +44,8 @@ import { printPokestops } from './js/printPokestops.js';
 getPokestops()
   .then(allPokestops => {
     console.log('allPokestops', allPokestops);
-    // Tooltip: will be displayed to the side, permanently
-    // Popup: this will only be displayed if the user clicks the pindrop
-    // if there is a task available for that pokestop, make it red:
-    // otherwise, make it opaque blue
+
     printPokestops(allPokestops, specialObject, false);
-
-
 
     const mbAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
       mbUrl = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${secrets.mapbox_API_key}`;

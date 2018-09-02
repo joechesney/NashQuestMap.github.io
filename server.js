@@ -117,7 +117,12 @@ app.post('/addTask/:id', (req, res) => {
       throw err;
     } else {
       console.log("Number of records inserted: " + result.affectedRows);
-      res.sendStatus(200);
+      console.log('result: ',result);
+      res.send({
+        insertId: result.insertId,
+        serverStatus: result.serverStatus,
+        pokestopId: req.body.pokestop_id
+      });
     }
   })
 })
