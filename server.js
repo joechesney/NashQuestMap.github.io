@@ -156,6 +156,7 @@ app.post('/addNewPokestop', (req, res, next) => {
     });
   }
 })
+
 app.post('/changeRequest', (req, res, next) => {
   // This endpoint will send me an email with any requested changes
   // console.log('req :', req.body);
