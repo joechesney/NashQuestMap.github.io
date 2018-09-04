@@ -1,9 +1,10 @@
 
+import { serverUrl } from './serverUrl.js';
 export function addTask(taskObject) {
   console.log('taskObject', taskObject);
   return new Promise((resolve, reject) => {
     $.ajax({
-      url: `http://localhost:8080/addTask/${taskObject.pokestop_id}`,
+      url: `${serverUrl()}/addTask/${taskObject.pokestop_id}`,
       method: 'POST',
       xhrFields: {
         withCredentials: false
