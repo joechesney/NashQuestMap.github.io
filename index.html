@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>PogoTaskMap</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="shortcut icon" type="image/x-icon" href="./images/nash-poke-map-favicon.ico" />
+
+	<link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />
+	<link rel="stylesheet" href="./node_modules/leaflet.locatecontrol/dist/L.Control.Locate.css" />
+
+	<script type="application/javascript" src="/node_modules/leaflet/dist/leaflet.js"></script>
+	<script type="application/javascript" src="/node_modules/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
+	<script type="application/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+
+	<style>
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		html, body, #map {
+			height: 95%;
+			width: 100vw;
+		}
+		.my-location-image {
+			width: 90%;
+			display: block;
+			margin: auto;
+		}
+		.about-this-site {
+			float: right;
+			padding-right: 1rem;
+		}
+	</style>
+
+	<script src='./secrets.js' type="module"></script>
+	<script src='./js/getPokestops.js' type="module"></script>
+	<script src='./js/getTodaysTasks.js' type="module"></script>
+	<script src='./js/addTask.js' type="module"></script>
+	<script src='./js/addNewPokestop.js' type="module"></script>
+</head>
+<body>
+
+<div id='map'></div>
+<div>
+	<input id="reward-search" type="text" placeholder="Search task rewards"/>
+	<button id="reward-search-button">Search</button>
+</div>
+<label for="add-new-pokestop">Add New Pokestop</label>
+<div>
+	<form method="post" name="add-new-pokestop" id="add-new-pokestop-form">
+		<input type="number" placeholder="Latitude" id="add-new-pokestop-latitude" required>
+		<input type="number" placeholder="Longitude" id="add-new-pokestop-longitude" required>
+		<input type="text" placeholder="Pokestop name" id="add-new-pokestop-name" required>
+		<input type="submit" value="Submit" id="add-new-pokestop-button">
+		<a class="about-this-site" href="./about.html">About this site</a>
+	</form>
+</div>
+
+<script type="module" src="./main.js"></script>
+<script src='./js/listeners.js' type="module"></script>
+
+</body>
+</html>
