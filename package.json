@@ -9,6 +9,14 @@
     "node": "8.9.1",
     "npm": "5.8.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joechesney/PogoTaskMap.github.io.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joechesney/PogoTaskMap.github.io/issues"
+  },
+  "homepage": "https://github.com/joechesney/PogoTaskMap.github.io#readme",
   "keywords": [],
   "author": "",
   "license": "ISC",
