@@ -4,7 +4,7 @@ import { addListeners } from './js/listeners.js';
 import { rewardSearch } from './js/rewardSearch.js';
 
 addListeners(); // adds event listeners to the page
-
+firebase.initializeApp(secrets.fb_config);
 /**
  * These 4 are variables used for the Leaflet map
  */
@@ -55,7 +55,7 @@ getPokestops()
 
     const map = L.map('map', {
       center: [36.1497012, -86.8144697],
-      zoom: 17,
+      zoom: 15,
       layers: [grayscale, Active, Regular]
     });
 
