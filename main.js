@@ -4,7 +4,7 @@ import { addListeners } from './js/listeners.js';
 import { rewardSearch } from './js/rewardSearch.js';
 
 addListeners(); // adds event listeners to the page
-firebase.initializeApp(secrets.fb_config);
+firebase.initializeApp(secrets.fbConfig);
 /**
  * These 4 are variables used for the Leaflet map
  */
@@ -48,7 +48,7 @@ getPokestops()
     printPokestops(allPokestops, specialObject, false);
 
     const mbAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-      mbUrl = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${secrets.mapbox_API_key}`;
+      mbUrl = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${secrets.mapboxKey}`;
 
     const grayscale = L.tileLayer(mbUrl, { id: 'mapbox.light', attribution: mbAttr }),
       streets = L.tileLayer(mbUrl, { id: 'mapbox.streets', attribution: mbAttr });
