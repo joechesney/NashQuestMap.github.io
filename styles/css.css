@@ -19,14 +19,18 @@ html, body, #map {
   margin: 0 auto;
   text-align: center;
 }
-#how-to-use-list {
+#how-to-use {
   width:70%;
+}
+#how-to-use-list{
   text-align: justify;
 }
 .about-page {
   border: solid black 1px;
 }
-
 #boundary-map {
   width: 100%;
+}
+#map-forms-container{
+  margin: .3rem;
 }

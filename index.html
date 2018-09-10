@@ -24,20 +24,22 @@
 <body>
 
 <div id='map'></div>
-<div>
-	<input id="reward-search" type="text" placeholder="Search task rewards"/>
-	<button id="reward-search-button">Search</button>
-</div>
-<hr>
-<label for="add-new-pokestop">Add New Pokestop</label>
-<div>
-	<form method="post" name="add-new-pokestop" id="add-new-pokestop-form">
-		<input type="number" placeholder="Latitude" id="add-new-pokestop-latitude" required>
-		<input type="number" placeholder="Longitude" id="add-new-pokestop-longitude" required>
-		<input type="text" placeholder="Pokestop name" id="add-new-pokestop-name" required>
-		<input type="submit" value="Submit" id="add-new-pokestop-button">
-		<a class="about-this-site" href="./about.html">About this site</a>
-	</form>
+<div id='map-forms-container'>
+	<div>
+		<input id="reward-search" type="text" placeholder="Search task rewards"/>
+		<button id="reward-search-button">Search</button>
+	</div>
+	<hr>
+	<label for="add-new-pokestop">Add New Pokestop</label>
+	<div>
+		<form method="post" name="add-new-pokestop" id="add-new-pokestop-form">
+			<input type="number" placeholder="Latitude" id="add-new-pokestop-latitude" required>
+			<input type="number" placeholder="Longitude" id="add-new-pokestop-longitude" required>
+			<input type="text" placeholder="Pokestop name" id="add-new-pokestop-name" required>
+			<input type="submit" value="Submit" id="add-new-pokestop-button">
+			<a class="about-this-site" href="./about.html">About this site</a>
+		</form>
+	</div>
 </div>
 
 	<script src="ugly/mapBundle.min.js" type="module"></script>
