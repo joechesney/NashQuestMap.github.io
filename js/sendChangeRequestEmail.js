@@ -1,21 +1,20 @@
 'use strict';
-import { secrets } from '../secrets.js';
-export function addTask(taskObject) {
-  console.log('taskObject', taskObject);
+import { secrets } from '../secrets';
+export function sendChangeRequestEmail(changeRequestObject) {
   return new Promise((resolve, reject) => {
     $.ajax({
-      url: `${secrets().serverUrl}/addTask/${taskObject.pokestop_id}`,
+      url: `${secrets().serverUrl}/changeRequest`,
       method: 'POST',
       xhrFields: {
         withCredentials: false
       },
-      data: taskObject,
+      data: changeRequestObject,
       success: function (data) {
         console.log('Success', data);
         resolve(data);
       },
       error: function (err) {
-        console.log('We are sorry but our servers are having an issue right now');
+        console.log(err);
         reject(err);
       }
     });
