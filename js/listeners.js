@@ -1,6 +1,9 @@
+'use strict';
 import { addTask } from './addTask.js';
 import { addNewPokestop } from './addNewPokestop.js';
 import { getCurrentDate } from './getCurrentDate.js';
+import { sendChangeRequestEmail } from './sendChangeRequestEmail.js';
+
 
 export function addListeners() {
 
@@ -20,8 +23,8 @@ export function addListeners() {
       $(`#add-new-pokestop-latitude`).val("");
       $(`#add-new-pokestop-longitude`).val("");
       location.reload();
-    })
-  })
+    });
+  });
 
 
   $(document).on("click", e => {
@@ -41,8 +44,7 @@ export function addListeners() {
       .then(result => {
         console.log('result', result);
         location.reload();
-
-      })
+      });
     }
-  })
+  });
 }

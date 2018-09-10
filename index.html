@@ -12,37 +12,14 @@
 
 	<link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />
 	<link rel="stylesheet" href="./node_modules/leaflet.locatecontrol/dist/L.Control.Locate.css" />
+	<link rel="stylesheet" href="./styles/css.css" />
+	<link rel="stylesheet" href="./styles/leaflet.css" />
 
-	<script type="application/javascript" src="/node_modules/leaflet/dist/leaflet.js"></script>
-	<script type="application/javascript" src="/node_modules/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
-	<script type="application/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+	<script type="application/javascript" src="./node_modules/leaflet/dist/leaflet.js"></script>
+	<script type="application/javascript" src="./node_modules/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
+	<script type="application/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
 
-	<style>
-		body {
-			padding: 0;
-			margin: 0;
-		}
-		html, body, #map {
-			height: 95%;
-			width: 100vw;
-		}
-		.my-location-image {
-			width: 90%;
-			display: block;
-			margin: auto;
-		}
-		.about-this-site {
-			float: right;
-			padding-right: 1rem;
-		}
-	</style>
-
-	<script src='./secrets.js' type="module"></script>
-	<script src='./js/getPokestops.js' type="module"></script>
-	<script src='./js/getTodaysTasks.js' type="module"></script>
-	<script src='./js/addTask.js' type="module"></script>
-	<script src='./js/addNewPokestop.js' type="module"></script>
 </head>
 <body>
 
@@ -62,8 +39,7 @@
 	</form>
 </div>
 
-<script src='./js/listeners.js' type="module"></script>
-<script type="module" src="./main.js"></script>
+	<script src="ugly/mapBundle.min.js" type="module"></script>
 
 </body>
 </html>

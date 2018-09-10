@@ -1,5 +1,5 @@
 
-
+'use strict';
 export function printPokestops(pokestopsArray, specialObject, searchBool) {
   // Tooltip: will be displayed to the side, permanently
   // Popup: this will only be displayed if the user clicks the pindrop
@@ -33,4 +33,4 @@ export function printPokestops(pokestopsArray, specialObject, searchBool) {
       .addTo(specialObject.Regular);
     }
   });
-};
+}

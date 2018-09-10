@@ -1,4 +1,4 @@
-
+'use strict';
 export function getCurrentDate() {
   let newDate = new Date(Date.now());
   // I am increasing the month by 1 bc the months are 0-indexed which is a bit confusing

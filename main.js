@@ -1,10 +1,11 @@
-import { secrets } from '/secrets.js';
+'use strict';
+import { secrets } from './secrets.js';
 import { getPokestops } from './js/getPokestops.js';
 import { addListeners } from './js/listeners.js';
 import { rewardSearch } from './js/rewardSearch.js';
 
 addListeners(); // adds event listeners to the page
-firebase.initializeApp(secrets.fbConfig);
+firebase.initializeApp(secrets().fbConfig);
 /**
  * These 4 are variables used for the Leaflet map
  */
@@ -36,7 +37,7 @@ $("#reward-search-button").on("click", function () {
       console.log('results of query', results);
       Active.clearLayers(); //Maybe should remove Regular layer too?
       printPokestops(results, specialObject, true);
-    })
+    });
 });
 
 
@@ -48,7 +49,7 @@ getPokestops()
     printPokestops(allPokestops, specialObject, false);
 
     const mbAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-      mbUrl = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${secrets.mapboxKey}`;
+      mbUrl = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${secrets().mapboxKey}`;
 
     const grayscale = L.tileLayer(mbUrl, { id: 'mapbox.light', attribution: mbAttr }),
       streets = L.tileLayer(mbUrl, { id: 'mapbox.streets', attribution: mbAttr });
@@ -62,7 +63,7 @@ getPokestops()
     // This line centers the map on the users location if they accept geolocation
     // map.locate({setView: true, maxZoom: 16});
     L.control.locate({ drawCircle: false, icon: "actually-good-my-location-icon" }).addTo(map);
-    $(".actually-good-my-location-icon").append("<img class='my-location-image'  src='./images/my_location_grey.png' />")
+    $(".actually-good-my-location-icon").append("<img class='my-location-image'  src='./images/my_location_grey.png' />");
 
     const baseLayers = {
       "Grayscale": grayscale,
@@ -81,6 +82,6 @@ getPokestops()
       console.log(`${e.latlng.lng}`);
       $("#add-new-pokestop-latitude").val(e.latlng.lat);
       $("#add-new-pokestop-longitude").val(e.latlng.lng);
-    })
+    });
   });
 

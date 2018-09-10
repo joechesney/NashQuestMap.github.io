@@ -1,2 +1,9 @@
 node_modules
 secrets.js
+/public
+.firebase/
+.firebaserc
+firebase.json
+dist/
+package-lock.json
+ugly/
