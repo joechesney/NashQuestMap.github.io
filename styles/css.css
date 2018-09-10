@@ -26,3 +26,7 @@ html, body, #map {
 .about-page {
   border: solid black 1px;
 }
+
+#boundary-map {
+  width: 100%;
+}
