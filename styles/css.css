@@ -21,6 +21,7 @@ html, body, #map {
 }
 #how-to-use-list {
   width:70%;
+  text-align: justify;
 }
 .about-page {
   border: solid black 1px;
