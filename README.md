@@ -20,13 +20,13 @@ All Pokestops are user-submitted, and are neither guaranteed to be complete, nor
 4. Research tasks, right now, are set to overwrite if a user submits a new research task for the same pokestop on the same day.
 5. That's all this site does. It just shows you quickly any valuable research rewards that have been submitted today.
 
-### submitting a research task
+### Submitting a research task
 1. Find the pokestop that has the task, click it, and a info window should appear on the pin.
 2. Fill out the "requirements" and the "reward" of the research task, then press the "submit" button.
 3. The page will reload.
 4. That's it!
 
-### submitting a new pokestop
+### Submitting a new pokestop
 1. For now, just click on the pokestops location on the map, which will auto-fill the latitude and longitude of the click location into the form fields at the bottom of the screen.
 2. Type in the name of the pokestop
 3. Hit submit.
