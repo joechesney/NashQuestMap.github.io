@@ -7,7 +7,7 @@ module.exports = function(grunt){
 
   grunt.initConfig({
     jshint: {
-      files: ['js/**/*.js', 'main.js', 'secrets.js'],
+      files: ['js/**/*.js', 'main.js', 'secrets.js', '!js/dist/*.js'],
       options: {
         predef: ['document', 'console', 'alert', '$', 'L', 'location', 'firebase'],
         esnext: true,
