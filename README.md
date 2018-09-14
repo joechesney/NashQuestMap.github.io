@@ -1,7 +1,7 @@
 # PoGoTaskMap-Client
-This repo contains the client-side code for PoGoTaskMap.
+This repo contains the client-side code for [PoGoTaskMap](https://pogotaskmap.firebaseapp.com/).
 
-If you wish to see the SERVER-SIDE code of this project: (https://github.com/joechesney/PoGoTaskMap-Server)[https://github.com/joechesney/PoGoTaskMap-Server]
+If you wish to see the SERVER-SIDE code of this project: [https://github.com/joechesney/PoGoTaskMap-Server](https://github.com/joechesney/PoGoTaskMap-Server)
 
 
 # NashQuestMap.github.io
