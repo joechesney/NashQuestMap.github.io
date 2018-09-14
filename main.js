@@ -34,7 +34,7 @@ $("#reward-search-button").on("click", function () {
   console.log('query mug: ', $("#reward-search").val());
   rewardSearch($("#reward-search").val())
     .then(results => {
-      console.log('results of query', results);
+      // console.log('results of query', results);
       Active.clearLayers(); //Maybe should remove Regular layer too?
       printPokestops(results, specialObject, true);
     });
@@ -44,7 +44,7 @@ $("#reward-search-button").on("click", function () {
 import { printPokestops } from './js/printPokestops.js';
 getPokestops()
   .then(allPokestops => {
-    console.log('allPokestops', allPokestops);
+    // console.log('allPokestops', allPokestops);
 
     printPokestops(allPokestops, specialObject, false);
 
