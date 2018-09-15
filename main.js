@@ -3,9 +3,25 @@ import { secrets } from './secrets.js';
 import { getPokestops } from './js/getPokestops.js';
 import { addListeners } from './js/listeners.js';
 import { rewardSearch } from './js/rewardSearch.js';
-
 addListeners(); // adds event listeners to the page
-firebase.initializeApp(secrets().fbConfig);
+
+// this detects whether the device is mobile or desktop
+// and changes the map click listeners accordingly
+$( document ).ready(function() {
+  var isMobile = window.matchMedia("only screen and (max-width: 1060px)");
+  isMobile.onchange = function(e){
+    console.log('mug changed', e);
+
+    if (isMobile.matches) {
+      // listeners for mobile device
+        console.log('width less than 760px',isMobile);
+    } else {
+      // listeners for desktop device
+      console.log('larger than 760px',isMobile);
+    }
+  };
+});
+
 /**
  * These 4 are variables used for the Leaflet map
  */
@@ -27,6 +43,7 @@ const Regular = L.layerGroup();
 const Active = L.layerGroup();
 
 
+
 // This object is used just to pass in these variables to the printPokestops function
 let specialObject = { bluePin, redPin, Regular, Active };
 
@@ -44,8 +61,6 @@ $("#reward-search-button").on("click", function () {
 import { printPokestops } from './js/printPokestops.js';
 getPokestops()
   .then(allPokestops => {
-    // console.log('allPokestops', allPokestops);
-
     printPokestops(allPokestops, specialObject, false);
 
     const mbAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
@@ -60,10 +75,27 @@ getPokestops()
       layers: [grayscale, Active, Regular]
     });
 
-    // This line centers the map on the users location if they accept geolocation
-    // map.locate({setView: true, maxZoom: 16});
+    // This adds the geolocation control to the map
     L.control.locate({ drawCircle: false, icon: "actually-good-my-location-icon" }).addTo(map);
     $(".actually-good-my-location-icon").append("<img class='my-location-image'  src='./images/my_location_grey.png' />");
+
+    // Custom map control for adNewPokestop
+    L.Control.Watermark = L.Control.extend({
+      onAdd: function(map) {
+          var img = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+          img.src = './images/add-pokestop.png';
+          img.style.width = '200px';
+
+          return img;
+      },
+      onRemove: function(map) {
+          // Nothing to do here
+      }
+    });
+    L.control.watermark = function(opts) {
+      return new L.Control.Watermark(opts);
+    };
+    L.control.watermark({ position: 'bottomleft' }).addTo(map);
 
     const baseLayers = {
       "Grayscale": grayscale,

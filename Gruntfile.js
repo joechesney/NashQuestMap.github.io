@@ -9,7 +9,7 @@ module.exports = function(grunt){
     jshint: {
       files: ['js/**/*.js', 'main.js', 'secrets.js', '!js/dist/*.js'],
       options: {
-        predef: ['document', 'console', 'alert', '$', 'L', 'location', 'firebase'],
+        predef: ['document', 'console', 'alert', '$', 'L', 'location', 'firebase', 'window'],
         esnext: true,
         globalstrict: true,
         globals: {},
@@ -38,6 +38,7 @@ module.exports = function(grunt){
             "about.html",
             "images/*",
             "styles/**/*.css",
+            "styles/images/*",
             "node_modules/**/*",
             'ugly/mapBundle.min.js',
             'ugly/aboutBundle.min.js'
