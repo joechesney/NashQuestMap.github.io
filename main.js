@@ -72,7 +72,7 @@ getPokestops()
     const map = L.map('map', {
       center: [36.1497012, -86.8144697],
       zoom: 15,
-      layers: [grayscale, Active, Regular]
+      layers: [streets, Active, Regular]
     });
 
     // This adds the geolocation control to the map
@@ -82,10 +82,13 @@ getPokestops()
     // Custom map control for adNewPokestop
     L.Control.Watermark = L.Control.extend({
       onAdd: function(map) {
-          var img = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+          var img = L.DomUtil.create('img', 'leaflet-bar leaflet-control leaflet-control-custom');
           img.src = './images/add-pokestop.png';
-          img.style.width = '200px';
-
+          img.style.width = 'auto';
+          img.onclick = (e)=>{
+            console.log('new control clicked!',e);
+            L.DomEvent.stopPropagation(e);
+          };
           return img;
       },
       onRemove: function(map) {
