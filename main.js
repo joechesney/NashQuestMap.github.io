@@ -5,19 +5,20 @@ import { addListeners } from './js/listeners.js';
 import { rewardSearch } from './js/rewardSearch.js';
 addListeners(); // adds event listeners to the page
 
+var isMobile;
 // this detects whether the device is mobile or desktop
 // and changes the map click listeners accordingly
 $( document ).ready(function() {
-  var isMobile = window.matchMedia("only screen and (max-width: 1060px)");
+  isMobile = window.matchMedia("only screen and (max-width: 1060px)");
   isMobile.onchange = function(e){
     console.log('mug changed', e);
 
     if (isMobile.matches) {
       // listeners for mobile device
-        console.log('width less than 760px',isMobile);
+        console.log('width less than 760px', isMobile);
     } else {
       // listeners for desktop device
-      console.log('larger than 760px',isMobile);
+      console.log('larger than 760px', isMobile);
     }
   };
 });
@@ -79,7 +80,9 @@ getPokestops()
     L.control.locate({ drawCircle: false, icon: "actually-good-my-location-icon" }).addTo(map);
     $(".actually-good-my-location-icon").append("<img class='my-location-image'  src='./images/my_location_grey.png' />");
 
-    // Custom map control for adNewPokestop
+    // Custom map control for addNewPokestop
+    // When clicked, it reveals the add-new-pokestop form on desktop
+
     L.Control.Watermark = L.Control.extend({
       onAdd: function(map) {
           var img = L.DomUtil.create('img', 'leaflet-bar leaflet-control leaflet-control-custom');
@@ -88,6 +91,8 @@ getPokestops()
           img.onclick = (e)=>{
             console.log('new control clicked!',e);
             L.DomEvent.stopPropagation(e);
+            // show addPokestop form
+            $("#add-new-pokestop-form-div").hide();
           };
           return img;
       },
@@ -112,11 +117,13 @@ getPokestops()
 
     L.control.layers(baseLayers, overlays).addTo(map);
 
-    map.on('click', (e) => {
-      console.log(`${e.latlng.lat}`);
-      console.log(`${e.latlng.lng}`);
-      $("#add-new-pokestop-latitude").val(e.latlng.lat);
-      $("#add-new-pokestop-longitude").val(e.latlng.lng);
-    });
+    if (isMobile.matches){
+      // This only works if the device STARTS in desktop mode
+      // Once the listener has been run, it is there until the page is refreshed
+      map.on('contextmenu', (e)=>{
+        console.log('contextmenu event:',e);
+      });
+    }
+
   });
 
