@@ -71,17 +71,15 @@ getPokestops()
     // Custom map control for addNewPokestop
     // When clicked, it reveals the add-new-pokestop form on desktop
 
-    L.Control.Watermark = L.Control.extend({
+    L.Control.AddPokestopControl = L.Control.extend({
       onAdd: function(map) {
           var img = L.DomUtil.create('img', 'leaflet-bar leaflet-control leaflet-control-custom');
           img.src = './images/add-pokestop.png';
           img.style.width = 'auto';
           img.onclick = (e)=>{
-            console.log('new control clicked!',e);
+            // when the control is clicked, the add-new-pokestop-form is toggled
             L.DomEvent.stopPropagation(e);
             e.stopPropagation();
-            // map.originalEvent.preventDefault();
-            // show addPokestop form
             $("#add-new-pokestop-form-div").toggle();
           };
           return img;
@@ -90,10 +88,10 @@ getPokestops()
           // Nothing to do here
       }
     });
-    L.control.watermark = function(opts) {
-      return new L.Control.Watermark(opts);
+    L.control.addpokestopcontrol = function(opts) {
+      return new L.Control.AddPokestopControl(opts);
     };
-    L.control.watermark({ position: 'bottomleft' }).addTo(map);
+    L.control.addpokestopcontrol({ position: 'bottomleft' }).addTo(map);
 
     const baseLayers = {
       "Grayscale": grayscale,
