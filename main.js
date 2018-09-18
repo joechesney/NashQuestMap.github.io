@@ -118,25 +118,13 @@ getPokestops()
 
         if (isMobile.matches) {
           // listeners for mobile device
-            console.log('width less than 760px', isMobile);
-            $("#add-new-pokestop-form-div").hide();
-
-            // map.on('contextmenu', (e)=>{
-            //   console.log('contextmenu event:',e);
-            //   var newPokestop = new L.marker([e.latlng.lat, e.latlng.lng],
-            //     { icon: specialObject.bluePin, opacity: 0.2 })
-            //   .bindPopup(`
-            //     <br>
-            //     <div class="add-new-pokestop-popup-div">
-            //       <input type="text" placeholder="name" required>
-            //       <input class="add-new-pokestop-popup-button" type="button" value="add pokestop">
-            //     </div>
-            //   `)
-            //   .addTo(map);
-            // });
+          console.log('width less than 760px', isMobile);
+          $("#add-new-pokestop-form-div").hide();
         } else {
           // listeners for desktop device
           console.log('larger than 760px', isMobile);
+          $("#add-new-pokestop-form-div").show();
+
         }
       // };
     });
