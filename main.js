@@ -5,23 +5,10 @@ import { addListeners } from './js/listeners.js';
 import { rewardSearch } from './js/rewardSearch.js';
 addListeners(); // adds event listeners to the page
 
-var isMobile;
+
 // this detects whether the device is mobile or desktop
 // and changes the map click listeners accordingly
-$( document ).ready(function() {
-  isMobile = window.matchMedia("only screen and (max-width: 1060px)");
-  isMobile.onchange = function(e){
-    console.log('mug changed', e);
 
-    if (isMobile.matches) {
-      // listeners for mobile device
-        console.log('width less than 760px', isMobile);
-    } else {
-      // listeners for desktop device
-      console.log('larger than 760px', isMobile);
-    }
-  };
-});
 
 /**
  * These 4 are variables used for the Leaflet map
@@ -73,7 +60,8 @@ getPokestops()
     const map = L.map('map', {
       center: [36.1497012, -86.8144697],
       zoom: 15,
-      layers: [streets, Active, Regular]
+      layers: [streets, Active, Regular],
+      tap: true
     });
 
     // This adds the geolocation control to the map
@@ -91,8 +79,10 @@ getPokestops()
           img.onclick = (e)=>{
             console.log('new control clicked!',e);
             L.DomEvent.stopPropagation(e);
+            e.stopPropagation();
+            // map.originalEvent.preventDefault();
             // show addPokestop form
-            $("#add-new-pokestop-form-div").hide();
+            $("#add-new-pokestop-form-div").toggle();
           };
           return img;
       },
@@ -116,14 +106,41 @@ getPokestops()
     };
 
     L.control.layers(baseLayers, overlays).addTo(map);
+    map.on('click', (e) => {
+      console.log(`${e.latlng.lat}`);
+      console.log(`${e.latlng.lng}`);
+      $("#add-new-pokestop-latitude").val(e.latlng.lat);
+      $("#add-new-pokestop-longitude").val(e.latlng.lng);
+    });
 
-    if (isMobile.matches){
-      // This only works if the device STARTS in desktop mode
-      // Once the listener has been run, it is there until the page is refreshed
-      map.on('contextmenu', (e)=>{
-        console.log('contextmenu event:',e);
-      });
-    }
+    $( document ).ready(function() {
+      const isMobile = window.matchMedia("only screen and (max-width: 1060px)");
+      // isMobile.onchange = function(e){
+        // console.log('mug changed', e);
 
+        if (isMobile.matches) {
+          // listeners for mobile device
+            console.log('width less than 760px', isMobile);
+            $("#add-new-pokestop-form-div").hide();
+
+            // map.on('contextmenu', (e)=>{
+            //   console.log('contextmenu event:',e);
+            //   var newPokestop = new L.marker([e.latlng.lat, e.latlng.lng],
+            //     { icon: specialObject.bluePin, opacity: 0.2 })
+            //   .bindPopup(`
+            //     <br>
+            //     <div class="add-new-pokestop-popup-div">
+            //       <input type="text" placeholder="name" required>
+            //       <input class="add-new-pokestop-popup-button" type="button" value="add pokestop">
+            //     </div>
+            //   `)
+            //   .addTo(map);
+            // });
+        } else {
+          // listeners for desktop device
+          console.log('larger than 760px', isMobile);
+        }
+      // };
+    });
   });
 
