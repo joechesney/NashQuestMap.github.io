@@ -73,16 +73,16 @@ getPokestops()
 
     L.Control.AddPokestopControl = L.Control.extend({
       onAdd: function(map) {
-          var img = L.DomUtil.create('img', 'leaflet-bar leaflet-control leaflet-control-custom');
-          img.src = './images/add-pokestop.png';
-          img.style.width = 'auto';
-          img.onclick = (e)=>{
-            // when the control is clicked, the add-new-pokestop-form is toggled
-            L.DomEvent.stopPropagation(e);
-            e.stopPropagation();
-            $("#add-new-pokestop-form-div").toggle();
-          };
-          return img;
+        var img = L.DomUtil.create('img', 'leaflet-bar leaflet-control leaflet-control-custom');
+        img.src = './images/add-pokestop.png';
+        img.style.width = 'auto';
+        img.onclick = (e)=>{
+          // when the control is clicked, the add-new-pokestop-form is toggled
+          L.DomEvent.stopPropagation(e);
+          e.stopPropagation();
+          $("#add-new-pokestop-form-div").toggle();
+        };
+        return img;
       },
       onRemove: function(map) {
           // Nothing to do here
