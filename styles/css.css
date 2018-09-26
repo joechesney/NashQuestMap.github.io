@@ -6,7 +6,7 @@ html, body {
   width: 100vw;
 }
 #map {
-  height: 95%;
+  height: 93%;
   width: 100%;
 }
 .my-location-image {
@@ -40,38 +40,10 @@ html, body {
 
 /*  widescreen  */
 @media only screen and (min-width: 720px) {
-  html {
-    padding: 0;
-    margin: 0;
-    width: 100vw;
-  }
-  body {
-    height: 100%;
-    width: 100%;
-  }
-  #map {
-    height: 90%;
-    width: 100%;
-  }
-  #add-new-pokestop-form-div {
-    display: block;
-  }
-  hr {
-    display: inherit;
-  }
 
 }
 
 /*   mobile   */
 @media only screen and (max-width: 720px) {
-  #add-new-pokestop-form-div {
-    display: none;
-  }
-  hr {
-    display: none;
-  }
-  .display-add-pokestop-form {
-    height: 90% !important;
-    width: 100% !important;
-  }
+
 }
