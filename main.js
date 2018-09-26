@@ -101,12 +101,12 @@ getPokestops()
 
     L.control.layers(baseLayers, overlays).addTo(map);
     // onclick console.log used for development
-    // map.on('click', (e) => {
-    //   console.log(`${e.latlng.lat}`);
-    //   console.log(`${e.latlng.lng}`);
-    //   $("#add-new-pokestop-latitude").val(e.latlng.lat);
-    //   $("#add-new-pokestop-longitude").val(e.latlng.lng);
-    // });
+    map.on('click', (e) => {
+      // console.log(`${e.latlng.lat}`);
+      // console.log(`${e.latlng.lng}`);
+      $("#add-new-pokestop-latitude").val(e.latlng.lat);
+      $("#add-new-pokestop-longitude").val(e.latlng.lng);
+    });
     $(document).ready(function(){
       $("#add-new-pokestop-form-div").hide();
     });
