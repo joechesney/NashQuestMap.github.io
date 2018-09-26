@@ -36,10 +36,8 @@ const Active = L.layerGroup();
 let specialObject = { bluePin, redPin, Regular, Active };
 
 $("#reward-search-button").on("click", function () {
-  console.log('query mug: ', $("#reward-search").val());
   rewardSearch($("#reward-search").val())
     .then(results => {
-      // console.log('results of query', results);
       Active.clearLayers(); //Maybe should remove Regular layer too?
       printPokestops(results, specialObject, true);
     });
@@ -80,8 +78,8 @@ getPokestops()
           // when the control is clicked, the two possible forms are toggled
           L.DomEvent.stopPropagation(e);
           e.stopPropagation();
-          $("#add-new-pokestop-form-div").toggle();
           $("#search-form-div").toggle();
+          $("#add-new-pokestop-form-div").toggle();
         };
         return img;
       }
@@ -102,29 +100,16 @@ getPokestops()
     };
 
     L.control.layers(baseLayers, overlays).addTo(map);
-    map.on('click', (e) => {
-      console.log(`${e.latlng.lat}`);
-      console.log(`${e.latlng.lng}`);
-      $("#add-new-pokestop-latitude").val(e.latlng.lat);
-      $("#add-new-pokestop-longitude").val(e.latlng.lng);
+    // onclick console.log used for development
+    // map.on('click', (e) => {
+    //   console.log(`${e.latlng.lat}`);
+    //   console.log(`${e.latlng.lng}`);
+    //   $("#add-new-pokestop-latitude").val(e.latlng.lat);
+    //   $("#add-new-pokestop-longitude").val(e.latlng.lng);
+    // });
+    $(document).ready(function(){
+      $("#add-new-pokestop-form-div").hide();
     });
 
-    $( document ).ready(function() {
-      const isMobile = window.matchMedia("only screen and (max-width: 1060px)");
-      // isMobile.onchange = function(e){
-        // console.log('mug changed', e);
-
-        if (isMobile.matches) {
-          // listeners for mobile device
-          console.log('width less than 760px', isMobile);
-          $("#add-new-pokestop-form-div").hide();
-        } else {
-          // listeners for desktop device
-          console.log('larger than 760px', isMobile);
-          $("#add-new-pokestop-form-div").show();
-
-        }
-      // };
-    });
   });
 

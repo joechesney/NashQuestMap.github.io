@@ -2,7 +2,6 @@
 
 import { secrets } from '../secrets.js';
 export function addNewPokestop(newPokestopObject) {
-  console.log('newPokestopObject', newPokestopObject);
   return new Promise((resolve, reject) => {
     $.ajax({
       url: `${secrets().serverUrl}/addNewPokestop`,
