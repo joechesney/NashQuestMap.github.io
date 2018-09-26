@@ -2,6 +2,7 @@ html, body {
   padding: 0;
   margin: 0;
   height: 100vh;
+  max-height: 100vh;
   width: 100vw;
 }
 #map {
@@ -39,24 +40,38 @@ html, body {
 
 /*  widescreen  */
 @media only screen and (min-width: 720px) {
-  html, body {
+  html {
     padding: 0;
     margin: 0;
-    max-height: 99vh;
-    width: 99vw;
+    width: 100vw;
+  }
+  body {
+    height: 100%;
+    width: 100%;
   }
   #map {
     height: 90%;
     width: 100%;
   }
+  #add-new-pokestop-form-div {
+    display: block;
+  }
+  hr {
+    display: inherit;
+  }
+
 }
 
 /*   mobile   */
 @media only screen and (max-width: 720px) {
   #add-new-pokestop-form-div {
-    visibility: hidden;
+    display: none;
   }
   hr {
-    visibility: hidden;
+    display: none;
+  }
+  .display-add-pokestop-form {
+    height: 90% !important;
+    width: 100% !important;
   }
 }

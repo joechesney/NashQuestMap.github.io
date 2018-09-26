@@ -69,6 +69,6 @@ module.exports = function(grunt){
   });
   require('matchdep').filter('grunt-*').forEach(grunt.loadNpmTasks);
   grunt.registerTask('default', ['jshint', 'browserify', 'uglify', 'watch']);
-  grunt.registerTask('deploy', ['browserify', 'copy']);
+  grunt.registerTask('deploy', ['browserify', 'uglify', 'copy']);
   grunt.registerTask('cleanit', ['clean']);
 }

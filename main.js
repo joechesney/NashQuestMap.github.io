@@ -81,11 +81,9 @@ getPokestops()
           L.DomEvent.stopPropagation(e);
           e.stopPropagation();
           $("#add-new-pokestop-form-div").toggle();
+          $("#map").toggleClass(" display-add-pokestop-form");
         };
         return img;
-      },
-      onRemove: function(map) {
-          // Nothing to do here
       }
     });
     L.control.addpokestopcontrol = function(opts) {
