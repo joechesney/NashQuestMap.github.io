@@ -77,13 +77,11 @@ getPokestops()
         img.src = './images/add-pokestop.png';
         img.style.width = 'auto';
         img.onclick = (e)=>{
-          // when the control is clicked, the add-new-pokestop-form is toggled
+          // when the control is clicked, the two possible forms are toggled
           L.DomEvent.stopPropagation(e);
           e.stopPropagation();
           $("#add-new-pokestop-form-div").toggle();
           $("#search-form-div").toggle();
-          // $("#map").toggleClass(" display-add-pokestop-form");
-          // $("#map").toggleClass(" display-search-form");
         };
         return img;
       }
