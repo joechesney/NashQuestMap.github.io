@@ -21,7 +21,7 @@ module.exports = function(grunt){
       },
       javascripts: {
         files: ['./js/**/*.js', 'main.js', 'secrets.js', 'about.js'],
-        tasks: ['jshint', 'browserify']
+        tasks: ['jshint', 'browserify', 'uglify']
       },
     },
     clean: {

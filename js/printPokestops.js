@@ -20,7 +20,7 @@ export function printPokestops(pokestopsArray, specialObject, searchBool) {
       .addTo(specialObject.Active);
     } else if (pokestop.active === 'false' && !searchBool ) {
       L.marker([pokestop.latitude, pokestop.longitude],
-        { icon: specialObject.bluePin, opacity: 0.2 })
+        { icon: specialObject.bluePin, opacity: 0.6 })
       .bindPopup(`
         <br>
         <div class="addTask">

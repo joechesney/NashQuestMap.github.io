@@ -5,11 +5,6 @@ import { addListeners } from './js/listeners.js';
 import { rewardSearch } from './js/rewardSearch.js';
 addListeners(); // adds event listeners to the page
 
-
-// this detects whether the device is mobile or desktop
-// and changes the map click listeners accordingly
-
-
 /**
  * These 4 are variables used for the Leaflet map
  */
@@ -29,8 +24,6 @@ const redPin = L.icon({
 });
 const Regular = L.layerGroup();
 const Active = L.layerGroup();
-
-
 
 // This object is used just to pass in these variables to the printPokestops function
 let specialObject = { bluePin, redPin, Regular, Active };
@@ -53,12 +46,18 @@ getPokestops()
       mbUrl = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${secrets().mapboxKey}`;
 
     const grayscale = L.tileLayer(mbUrl, { id: 'mapbox.light', attribution: mbAttr }),
-      streets = L.tileLayer(mbUrl, { id: 'mapbox.streets', attribution: mbAttr });
+      dark = L.tileLayer(mbUrl, { id: 'mapbox.dark', attribution: mbAttr }),
+      comic = L.tileLayer(mbUrl, { id: 'mapbox.comic', attribution: mbAttr }),
+      pirates = L.tileLayer(mbUrl, { id: 'mapbox.pirates', attribution: mbAttr }),
+      pencil = L.tileLayer(mbUrl, { id: 'mapbox.pencil', attribution: mbAttr }),
+      streets_satellite = L.tileLayer(mbUrl, { id: 'mapbox.streets-satellite', attribution: mbAttr }),
+      streets_basic = L.tileLayer(mbUrl, { id: 'mapbox.streets-basic', attribution: mbAttr }),
+      roadmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: mbAttr });
 
     const map = L.map('map', {
       center: [36.1497012, -86.8144697],
       zoom: 15,
-      layers: [streets, Active, Regular],
+      layers: [roadmap, Active, Regular],
       tap: true
     });
 
@@ -90,8 +89,14 @@ getPokestops()
     L.control.addpokestopcontrol({ position: 'bottomleft' }).addTo(map);
 
     const baseLayers = {
+      "Roadmap": roadmap,
       "Grayscale": grayscale,
-      "Streets": streets
+      "Streets Basic": streets_basic,
+      "Streets Satellite": streets_satellite,
+      "Dark": dark,
+      "Comic": comic,
+      "Pirates": pirates,
+      "Pencil": pencil,
     };
 
     const overlays = {
@@ -100,6 +105,7 @@ getPokestops()
     };
 
     L.control.layers(baseLayers, overlays).addTo(map);
+
     // onclick console.log used for development
     map.on('click', (e) => {
       // console.log(`${e.latlng.lat}`);
