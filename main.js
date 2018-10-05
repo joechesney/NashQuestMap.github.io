@@ -3,6 +3,10 @@ import { secrets } from './secrets.js';
 import { getPokestops } from './js/getPokestops.js';
 import { addListeners } from './js/listeners.js';
 import { rewardSearch } from './js/rewardSearch.js';
+import { printPokestops } from './js/printPokestops.js';
+import { addNewPokestop } from './js/addNewPokestop.js';
+import { getNewestPokestop } from './js/getNewestPokestop.js';
+
 addListeners(); // adds event listeners to the page
 
 /**
@@ -36,8 +40,6 @@ $("#reward-search-button").on("click", function () {
     });
 });
 
-
-import { printPokestops } from './js/printPokestops.js';
 getPokestops()
   .then(allPokestops => {
     printPokestops(allPokestops, specialObject, false);
@@ -115,6 +117,47 @@ getPokestops()
     });
     $(document).ready(function(){
       $("#add-new-pokestop-form-div").hide();
+    });
+
+    $("#add-new-pokestop-button").on("click", (e) => {
+      e.preventDefault();
+      let newPokeStopObject = {
+        name: $(`#add-new-pokestop-name`).val(),
+        latitude: +$(`#add-new-pokestop-latitude`).val(),
+        longitude: +$(`#add-new-pokestop-longitude`).val(),
+        // date_submitted: property is being given a value using a MySQL method server-side
+      };
+      addNewPokestop(newPokeStopObject)
+      .then(result => {
+        $(`#add-new-pokestop-name`).val("");
+        $(`#add-new-pokestop-latitude`).val("");
+        $(`#add-new-pokestop-longitude`).val("");
+        getNewestPokestop(result.insertId)
+        .then(newPokestop=>{
+          console.log('newPokestop',newPokestop);
+          newPokestop = newPokestop[0];
+          // printPokestops(newPokestop, specialObject, false);
+          var marker = L.marker([newPokestop.latitude, newPokestop.longitude],
+          { icon: specialObject.bluePin, opacity: 0.6 })
+          .bindPopup(`
+            <br>
+            <div class="addTask">
+              <h1>${newPokestop.name}</h1>
+              <input id="${newPokestop.id}task" type="text" placeholder="task" required>
+              <input id="${newPokestop.id}reward" type="text" placeholder="reward" required>
+              <input class="addTaskButton" id="${newPokestop.id}" type="button" value="add task">
+            </div>
+          `).addTo(map);
+        });
+      });
+    });
+
+    $("#reward-search-button").on("click", function () {
+      rewardSearch($("#reward-search").val())
+        .then(results => {
+          Active.clearLayers(); //Maybe should remove Regular layer too?
+          printPokestops(results, specialObject, true);
+        });
     });
 
   });

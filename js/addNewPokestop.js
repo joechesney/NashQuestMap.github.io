@@ -9,11 +9,8 @@ export function addNewPokestop(newPokestopObject) {
       xhrFields: {
         withCredentials: false
       },
-      // headers: {
-      // },
       data: newPokestopObject,
       success: function (data) {
-        console.log('Success', data);
         resolve(data);
       },
       error: function (err) {
