@@ -1,6 +1,8 @@
 'use strict';
 import { addTask } from './addTask.js';
-
+// THIS FILE HAS BEEN TEMPORARILY MADE OBSOLETE.
+// THIS EVENT LISTENER IS CURRENTLY RUNNING IN MAIN.JS
+//    ON ITS OWN WITHOUT THIS FUNCITON
 export function addListeners() {
   $(document).on("click", e => {
     if ($(e.target).hasClass("addTaskButton") &&
@@ -18,8 +20,6 @@ export function addListeners() {
       };
       addTask(taskObject)
       .then(result => {
-        console.log('result', result);
-        location.reload();
       });
     }
   });

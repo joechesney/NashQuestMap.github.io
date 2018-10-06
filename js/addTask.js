@@ -10,7 +10,6 @@ export function addTask(taskObject) {
       },
       data: taskObject,
       success: function (data) {
-        console.log('Success', data);
         resolve(data);
       },
       error: function (err) {

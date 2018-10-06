@@ -125,7 +125,6 @@ getPokestops()
         $(`#add-new-pokestop-name`).val("");
         $(`#add-new-pokestop-latitude`).val("");
         $(`#add-new-pokestop-longitude`).val("");
-        console.log('result: ',result);
         getOnePokestop(result.pokestopId)
         .then(newPokestopArray=>{
           printPokestops(map, newPokestopArray, specialObject, false, true);
@@ -161,8 +160,6 @@ getPokestops()
           };
           addTask(taskObject)
           .then(result => {
-            console.log('result', result);
-            // location.reload();
             getOnePokestop(result.pokestopId)
             .then(newPokestopArray=>{
               map.closePopup();
