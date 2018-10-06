@@ -58,12 +58,16 @@ getPokestops()
     // printPokestops(map, allPokestops, specialObject, false);
 
     // This adds the geolocation control to the map
-    L.control.locate({ drawCircle: false, icon: "actually-good-my-location-icon" }).addTo(map);
+    L.control.locate({ drawCircle: false,
+      icon: "actually-good-my-location-icon",
+      locateOptions: {
+        enableHighAccuracy: true
+      }
+    }).addTo(map);
     $(".actually-good-my-location-icon").append("<img class='my-location-image'  src='./images/my_location_grey.png' />");
 
     // Custom map control for addNewPokestop
     // When clicked, it reveals the add-new-pokestop form on desktop
-
     L.Control.AddPokestopControl = L.Control.extend({
       onAdd: function(map) {
         var img = L.DomUtil.create('img', 'leaflet-bar leaflet-control leaflet-control-custom');
@@ -101,16 +105,6 @@ getPokestops()
     };
 
     L.control.layers(baseLayers, overlays).addTo(map);
-
-    // onclick console.log used for development
-    map.on('click', (e) => {
-      // console.log(`${e.latlng.lat}`);
-      // console.log(`${e.latlng.lng}`);
-      $("#add-new-pokestop-latitude").val(e.latlng.lat);
-      $("#add-new-pokestop-longitude").val(e.latlng.lng);
-    });
-
-
 
     $("#add-new-pokestop-button").on("click", (e) => {
       e.preventDefault();
@@ -168,6 +162,15 @@ getPokestops()
           });
         }
       });
+
+    // onclick console.log used for development
+    map.on('click', (e) => {
+      // console.log(`${e.latlng.lat}`);
+      // console.log(`${e.latlng.lng}`);
+      $("#add-new-pokestop-latitude").val(e.latlng.lat);
+      $("#add-new-pokestop-longitude").val(e.latlng.lng);
+    });
+
     });
 
   });
