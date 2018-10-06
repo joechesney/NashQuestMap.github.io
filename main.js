@@ -125,7 +125,8 @@ getPokestops()
         $(`#add-new-pokestop-name`).val("");
         $(`#add-new-pokestop-latitude`).val("");
         $(`#add-new-pokestop-longitude`).val("");
-        getOnePokestop(result.insertId)
+        console.log('result: ',result);
+        getOnePokestop(result.pokestopId)
         .then(newPokestopArray=>{
           printPokestops(map, newPokestopArray, specialObject, false, true);
         });

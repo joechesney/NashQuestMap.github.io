@@ -32,7 +32,6 @@ export function printPokestops(map, pokestopsArray, specialObject, searchBool, n
         </div>
       `)
       .addTo(specialObject.Regular);
-      specialObject.Regular.addTo(map);
     }
   });
 }

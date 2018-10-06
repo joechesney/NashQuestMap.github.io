@@ -5,9 +5,10 @@ import { secrets } from '../secrets.js';
 export function getOnePokestop(pokestopId) {
   return new Promise((resolve, reject)=>{
     $.get(`${secrets().serverUrl}/getOnePokestop/${pokestopId}`)
-    .then(pokestop=>{
-      if(pokestop.length > 0){
-        resolve(pokestop);
+    .then(result=>{
+      console.log('result in getOnePokestop ', result);
+      if(result.pokestop.length > 0){
+        resolve(result.pokestop);
       }
       else {
         let err = new Error();
