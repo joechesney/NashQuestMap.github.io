@@ -7,17 +7,18 @@
   <title>About PoGoTaskMap</title>
   <link rel="shortcut icon" type="image/x-icon" href="./images/nash-poke-map-favicon.ico" />
 
+  <link rel="stylesheet" href="./node_modules/bulma/css/bulma.min.css" />
 	<link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />
-	<link rel="stylesheet" href="./node_modules/leaflet.locatecontrol/dist/L.Control.Locate.css" />
 	<link rel="stylesheet" href="./styles/css.css" />
 
-	<script type="application/javascript" src="./node_modules/leaflet/dist/leaflet.js"></script>
-	<script type="application/javascript" src="./node_modules/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
 
 </head>
 <body>
   <div class="centered">
+    <br>
+    <a class="" href="./index.html">Go back to map</a>
+    <hr>
     <p>This site is still under construction.</p>
     <div id="how-to-use" class="centered">
       <div class="centered">Currently, pokestop submission has been restricted to these boundaries:
@@ -26,7 +27,7 @@
       <label for="how-to-use-list"><h2>How to use this site:</h2></label>
       <ol id="how-to-use-list" name="how-to-use-list">
         <li>To submit a Research Task, click that pokestop's pin, enter the task requirements and reward(s), then hit enter. The page will reload to show you the task was submitted.</li>
-        <li>To submit a new pokestop, just click on the map. The longitude and latitude of where you clicked will be entered into the inputs at the bottom of the screen. Then just enter the pokestop's name, and hit submit. The page will reload to show you the new pokestop!</li>
+        <li>To submit a new pokestop, just click on the <img class="about-add-pokestop-img" src="./images/add-pokestop.png"> The longitude and latitude of where you clicked will be entered into the inputs at the bottom of the screen. Then just enter the pokestop's name, and hit submit. The page will reload to show you the new pokestop!</li>
       </ol>
     </div>
 
@@ -36,8 +37,6 @@
       <textarea id="changes-requested" rows="4" cols="25" type="text" placeholder="changes requested" required ></textarea><br>
       <input id="submit-change-request" type="button" value="submit" >
     </form>
-    <br>
-    <hr>
     <br>
     <a href="./index.html">Go back to map</a>
   </div>

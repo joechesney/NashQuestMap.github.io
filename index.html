@@ -10,6 +10,7 @@
 
 	<link rel="shortcut icon" type="image/x-icon" href="./images/nash-poke-map-favicon.ico" />
 
+	<link rel="stylesheet" href="./node_modules/bulma/css/bulma.min.css" />
 	<link rel="stylesheet" href="./node_modules/leaflet/dist/leaflet.css" />
 	<link rel="stylesheet" href="./node_modules/leaflet.locatecontrol/dist/L.Control.Locate.css" />
 	<link rel="stylesheet" href="./styles/css.css" />
@@ -25,16 +26,18 @@
 <div id='map'></div>
 <div id='map-forms-container'>
 	<div id="search-form-div">
-		<input id="reward-search" type="text" placeholder="Search task rewards"/>
-		<button id="reward-search-button">Search</button>
-		<a class="about-this-site" href="./about.html">About this site</a>
+		<input id="reward-search" class="input is-small" type="text" placeholder="Search task rewards"/>
+		<button id="reward-search-button" class="button is-info is-small">Search</button>
+		<a class="about-this-site button is-info is-small is-outlined" href="./about.html">
+			About this site
+		</a>
 	</div>
 	<div id="add-new-pokestop-form-div">
 		<form method="post" name="add-new-pokestop" id="add-new-pokestop-form">
-			<input type="number" placeholder="Latitude" id="add-new-pokestop-latitude" required>
-			<input type="number" placeholder="Longitude" id="add-new-pokestop-longitude" required>
-			<input type="text" placeholder="Pokestop name" id="add-new-pokestop-name" required>
-			<input type="submit" value="Submit" id="add-new-pokestop-button">
+			<input type="number" class="input is-small" placeholder="Latitude" id="add-new-pokestop-latitude" required>
+			<input type="number" class="input is-small" placeholder="Longitude" id="add-new-pokestop-longitude" required>
+			<input type="text" class="input is-small" placeholder="Pokestop name" id="add-new-pokestop-name" required>
+			<input type="submit" class="button is-small is-info" value="Submit" id="add-new-pokestop-button">
 		</form>
 	</div>
 </div>

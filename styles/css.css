@@ -16,7 +16,7 @@ html, body {
 }
 .about-this-site {
   float: right;
-  padding-right: 1rem;
+  margin-right: 1rem;
 }
 .centered {
   margin: 0 auto;
@@ -37,7 +37,17 @@ html, body {
 #map-forms-container{
   margin: .3rem;
 }
-
+#reward-search {
+  width: inherit;
+}
+#add-new-pokestop-latitude,
+#add-new-pokestop-longitude,
+#add-new-pokestop-name {
+  width: inherit;
+}
+.about-add-pokestop-img {
+  width: 3%;
+}
 /*  widescreen  */
 @media only screen and (min-width: 720px) {
 
@@ -45,5 +55,7 @@ html, body {
 
 /*   mobile   */
 @media only screen and (max-width: 720px) {
-
+  .about-add-pokestop-img {
+    width: 7%;
+  }
 }
