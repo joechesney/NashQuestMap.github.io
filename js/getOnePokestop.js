@@ -2,9 +2,9 @@
 // It will receive the id of the pokestop and send it in as a query in the url
 'use strict';
 import { secrets } from '../secrets.js';
-export function getNewestPokestop(pokestopId) {
+export function getOnePokestop(pokestopId) {
   return new Promise((resolve, reject)=>{
-    $.get(`${secrets().serverUrl}/getNewestPokestop/${pokestopId}`)
+    $.get(`${secrets().serverUrl}/getOnePokestop/${pokestopId}`)
     .then(pokestop=>{
       if(pokestop.length > 0){
         resolve(pokestop);

@@ -1,13 +1,15 @@
 
 'use strict';
-export function printPokestops(map, pokestopsArray, specialObject, searchBool) {
-  // Tooltip: will be displayed to the side, permanently
-  // Popup: this will only be displayed if the user clicks the pindrop
-  // if there is a task available for that pokestop, make it red:
-  // otherwise, make it opaque blue
+export function printPokestops(map, pokestopsArray, specialObject, searchBool, newPokestopBool) {
+  // -Tooltip: will be displayed to the side, permanently
+  // -Popup: this will only be displayed if the user clicks the pindrop
+  // -If there is a task available for that pokestop, make it red:
+  //   otherwise, make it opaque blue
+  // -If searchBool is true, only display active pokestops that match the query
+  // -If newPokestopBool is true, directly add pokestop to map, instead of layerGroup
   pokestopsArray.forEach(pokestop => {
     if(pokestop.active === 'true'){
-      L.marker([pokestop.latitude, pokestop.longitude],{icon: specialObject.redPin })
+      L.marker([pokestop.latitude, pokestop.longitude],{icon: specialObject.redPin})
       .bindPopup(`
       <span><b>${pokestop.name}</b></span><br>
       <span>Task: ${pokestop.requirements}</span><br>
@@ -15,10 +17,9 @@ export function printPokestops(map, pokestopsArray, specialObject, searchBool) {
       `)
       .bindTooltip(`
         <span>${pokestop.reward}</span>
-        `,
-        {permanent: true})
+        `,{permanent: true})
       .addTo(specialObject.Active);
-    } else if (pokestop.active === 'false' && !searchBool ) {
+    } else if ((pokestop.active === 'false' && !searchBool ) || newPokestopBool) {
       L.marker([pokestop.latitude, pokestop.longitude],
         { icon: specialObject.bluePin, opacity: 0.6 })
       .bindPopup(`
@@ -31,6 +32,7 @@ export function printPokestops(map, pokestopsArray, specialObject, searchBool) {
         </div>
       `)
       .addTo(specialObject.Regular);
+      specialObject.Regular.addTo(map);
     }
   });
 }
