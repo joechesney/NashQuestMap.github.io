@@ -1,6 +1,6 @@
 
 'use strict';
-export function printPokestops(pokestopsArray, specialObject, searchBool) {
+export function printPokestops(map, pokestopsArray, specialObject, searchBool) {
   // Tooltip: will be displayed to the side, permanently
   // Popup: this will only be displayed if the user clicks the pindrop
   // if there is a task available for that pokestop, make it red:

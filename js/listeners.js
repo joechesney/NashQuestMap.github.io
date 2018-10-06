@@ -1,10 +1,11 @@
 'use strict';
 import { addTask } from './addTask.js';
-import { getNewestPokestop } from './getNewestPokestop.js';
 
 export function addListeners() {
   $(document).on("click", e => {
-    if (e.target.className === "addTaskButton") {
+    if ($(e.target).hasClass("addTaskButton") &&
+        $(`#${e.target.id}task`).val() &&
+        $(`#${e.target.id}reward`).val()) {
       let taskObject = {
         requirements: $(`#${e.target.id}task`).val(),
         reward: $(`#${e.target.id}reward`).val(),

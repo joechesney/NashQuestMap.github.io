@@ -42,7 +42,6 @@ $("#reward-search-button").on("click", function () {
 
 getPokestops()
   .then(allPokestops => {
-    printPokestops(allPokestops, specialObject, false);
 
     const mbAttr = '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
       mbUrl = `https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${secrets().mapboxKey}`;
@@ -62,6 +61,7 @@ getPokestops()
       layers: [roadmap, Active, Regular],
       tap: true
     });
+    printPokestops(map, allPokestops, specialObject, false);
 
     // This adds the geolocation control to the map
     L.control.locate({ drawCircle: false, icon: "actually-good-my-location-icon" }).addTo(map);
@@ -115,9 +115,8 @@ getPokestops()
       $("#add-new-pokestop-latitude").val(e.latlng.lat);
       $("#add-new-pokestop-longitude").val(e.latlng.lng);
     });
-    $(document).ready(function(){
-      $("#add-new-pokestop-form-div").hide();
-    });
+
+
 
     $("#add-new-pokestop-button").on("click", (e) => {
       e.preventDefault();
@@ -133,21 +132,20 @@ getPokestops()
         $(`#add-new-pokestop-latitude`).val("");
         $(`#add-new-pokestop-longitude`).val("");
         getNewestPokestop(result.insertId)
-        .then(newPokestop=>{
-          console.log('newPokestop',newPokestop);
-          newPokestop = newPokestop[0];
-          // printPokestops(newPokestop, specialObject, false);
-          var marker = L.marker([newPokestop.latitude, newPokestop.longitude],
-          { icon: specialObject.bluePin, opacity: 0.6 })
-          .bindPopup(`
-            <br>
-            <div class="addTask">
-              <p><b>${newPokestop.name}</b></p>
-              <input id="${newPokestop.id}task" class="input is-small" type="text" placeholder="task" required>
-              <input id="${newPokestop.id}reward" class="input is-small" type="text" placeholder="reward" required>
-              <input class="addTaskButton button is-small is-info is-outlined" id="${newPokestop.id}" type="button" value="add task">
-            </div>
-          `).addTo(map);
+        .then(newPokestopArray=>{
+          console.log('newPokestopArray', newPokestopArray);
+          printPokestops(map, newPokestopArray, specialObject, false);
+          // var marker = L.marker([newPokestop.latitude, newPokestop.longitude],
+          // { icon: specialObject.bluePin, opacity: 0.6 })
+          // .bindPopup(`
+          //   <br>
+          //   <div class="addTask">
+          //     <p><b>${newPokestop.name}</b></p>
+          //     <input id="${newPokestop.id}task" class="input is-small" type="text" placeholder="task" required>
+          //     <input id="${newPokestop.id}reward" class="input is-small" type="text" placeholder="reward" required>
+          //     <input class="addTaskButton button is-small is-info is-outlined" id="${newPokestop.id}" type="button" value="add task">
+          //   </div>
+          // `).addTo(map);
         });
       });
     });
@@ -156,8 +154,12 @@ getPokestops()
       rewardSearch($("#reward-search").val())
         .then(results => {
           Active.clearLayers(); //Maybe should remove Regular layer too?
-          printPokestops(results, specialObject, true);
+          printPokestops(map, results, specialObject, true);
         });
+    });
+
+    $(document).ready(function(){
+      $("#add-new-pokestop-form-div").hide();
     });
 
   });
