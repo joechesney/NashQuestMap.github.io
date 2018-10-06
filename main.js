@@ -142,10 +142,10 @@ getPokestops()
           .bindPopup(`
             <br>
             <div class="addTask">
-              <h1>${newPokestop.name}</h1>
-              <input id="${newPokestop.id}task" type="text" placeholder="task" required>
-              <input id="${newPokestop.id}reward" type="text" placeholder="reward" required>
-              <input class="addTaskButton" id="${newPokestop.id}" type="button" value="add task">
+              <p><b>${newPokestop.name}</b></p>
+              <input id="${newPokestop.id}task" class="input is-small" type="text" placeholder="task" required>
+              <input id="${newPokestop.id}reward" class="input is-small" type="text" placeholder="reward" required>
+              <input class="addTaskButton button is-small is-info is-outlined" id="${newPokestop.id}" type="button" value="add task">
             </div>
           `).addTo(map);
         });

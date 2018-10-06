@@ -28,9 +28,6 @@ html, body {
 #how-to-use-list{
   text-align: justify;
 }
-.about-page {
-  border: solid black 1px;
-}
 #boundary-map {
   width: 100%;
 }
@@ -47,6 +44,12 @@ html, body {
 }
 .about-add-pokestop-img {
   width: 3%;
+}
+#user-email,
+#changes-requested {
+  width: inherit;
+  min-width: inherit;
+  margin: 0 auto;
 }
 /*  widescreen  */
 @media only screen and (min-width: 720px) {

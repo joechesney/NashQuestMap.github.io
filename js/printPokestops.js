@@ -24,10 +24,10 @@ export function printPokestops(pokestopsArray, specialObject, searchBool) {
       .bindPopup(`
         <br>
         <div class="addTask">
-          <h1>${pokestop.name}</h1>
-          <input id="${pokestop.id}task" type="text" placeholder="task" required>
-          <input id="${pokestop.id}reward" type="text" placeholder="reward" required>
-          <input class="addTaskButton" id="${pokestop.id}" type="button" value="add task">
+          <p><b>${pokestop.name}</b></p>
+          <input id="${pokestop.id}task" class="input is-small" type="text" placeholder="task" required>
+          <input id="${pokestop.id}reward" class="input is-small" type="text" placeholder="reward" required>
+          <input class="addTaskButton button is-small is-info is-outlined" id="${pokestop.id}" type="button" value="add task">
         </div>
       `)
       .addTo(specialObject.Regular);
