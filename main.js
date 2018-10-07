@@ -11,9 +11,7 @@ import { addTask } from './js/addTask.js';
 
 // addListeners(); // adds event listeners to the page
 
-/**
- * These 4 are variables used for the Leaflet map
- */
+/** These 4 are variables used for the Leaflet map **/
 const bluePin = L.icon({
   iconUrl: 'node_modules/leaflet/dist/images/marker-icon.png',
   iconSize: [21, 35], // size of the icon
@@ -55,7 +53,6 @@ getPokestops()
       layers: [roadmap, specialObject.Active, specialObject.Regular],
       tap: true
     });
-    // printPokestops(map, allPokestops, specialObject, false);
 
     // This adds the geolocation control to the map
     L.control.locate({ drawCircle: false,
