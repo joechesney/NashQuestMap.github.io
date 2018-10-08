@@ -7,7 +7,7 @@ import { addNewPokestop } from './js/addNewPokestop.js';
 import { getOnePokestop } from './js/getOnePokestop.js';
 import { addTask } from './js/addTask.js';
 
-// These 4 are variables used for the Leaflet map
+// These 6 are variables used for the Leaflet map
 const bluePin = L.icon({
   iconUrl: 'node_modules/leaflet/dist/images/marker-icon.png',
   iconSize: [21, 35], // size of the icon
@@ -23,13 +23,16 @@ const redPin = L.icon({
   tooltipAnchor: [10, -20]
 });
 
+
 // These are the 3 layerGroups that hold pin associations for the map
 const Regular = L.layerGroup();
 const Active = L.layerGroup();
 const SearchResults = L.layerGroup();
+const newPokestopLayer = L.layerGroup();
+
 
 // This object is used just to pass these variables to the printPokestops function, and other functions
-const mapPropertiesObject = { bluePin, redPin, Regular, Active, SearchResults };
+const mapPropertiesObject = { bluePin, redPin, Regular, Active, SearchResults, newPokestopLayer };
 
 getPokestops()
   .then(allPokestops => {
@@ -143,6 +146,7 @@ getPokestops()
           $(`#add-new-pokestop-longitude`).val("");
           getOnePokestop(result.pokestopId)
             .then(newPokestopArray => {
+              newPokestopLayer.clearLayers();
               printPokestops(newPokestopArray, mapPropertiesObject, false, true);
             });
         });
@@ -181,7 +185,6 @@ getPokestops()
       // map pins are not created in the DOM until the document is ready
       printPokestops(allPokestops, mapPropertiesObject, false, false);
 
-      console.log('mapmugs',mapPropertiesObject);
       // hide the add-new-pokestop form to make it togglable
       $("#add-new-pokestop-form-div").hide();
 
@@ -207,17 +210,32 @@ getPokestops()
             map.closePopup();
             Regular.clearLayers();
             Active.clearLayers();
+            newPokestopLayer.clearLayers();
             printPokestops(allPokestops, mapPropertiesObject, false, false);
           });
         }
       });
 
+
+      const yellowPin = L.icon({
+        iconUrl: './images/yellow-pin.png',
+        iconSize: [21, 35], // size of the icon
+        iconAnchor: [18, 41], // point of the icon which will correspond to marker's location
+        // popupAnchor: [-7, -40],  // point from which the popup should open relative to the iconAnchor
+        // tooltipAnchor: [10, -20]
+      });
       // The lat/long values are inserted into the add-new-pokestop form fields on map click
       map.on('click', (e) => {
-        console.log('e of any click:',e);
-        $("#add-new-pokestop-latitude").val(e.latlng.lat);
-        $("#add-new-pokestop-longitude").val(e.latlng.lng);
-        // put yellow pin onto the map here
+        // console.log('e of any click:',e);
+        if($("#add-new-pokestop-form-div").is(":visible")){
+          newPokestopLayer.clearLayers();
+          $("#add-new-pokestop-latitude").val(e.latlng.lat);
+          $("#add-new-pokestop-longitude").val(e.latlng.lng);
+          L.marker([e.latlng.lat, e.latlng.lng],
+          { icon: yellowPin, opacity: 0.6})
+          .addTo(newPokestopLayer);
+          newPokestopLayer.addTo(map);
+        }
       });
 
     }); // end of document.ready function

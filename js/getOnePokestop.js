@@ -5,14 +5,7 @@ import { secrets } from '../secrets.js';
 export function getOnePokestop(pokestopId) {
   return new Promise((resolve, reject)=>{
     $.get(`${secrets().serverUrl}/getOnePokestop/${pokestopId}`)
-    .then(result=>{
-      if(result.length > 0){
-        resolve(result);
-      }
-      else {
-        let err = new Error();
-        reject(err);
-      }
-    });
+    .done(result => {if(result) resolve(result);})
+    .fail(error => reject(error));
   });
 }
