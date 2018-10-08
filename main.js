@@ -180,16 +180,18 @@ getPokestops()
 
       // map pins are not created in the DOM until the document is ready
       printPokestops(allPokestops, mapPropertiesObject, false, false);
+
       console.log('mapmugs',mapPropertiesObject);
       // hide the add-new-pokestop form to make it togglable
       $("#add-new-pokestop-form-div").hide();
 
       // on-document listener for the dynamic addTask buttons on pin popups
       $(document).on("click", e => {
+
         if ($(e.target).hasClass("addTaskButton") &&
-            $(`#${e.target.id}task`).val() &&
-            $(`#${e.target.id}reward`).val()) {
-          let taskObject = {
+        $(`#${e.target.id}task`).val() &&
+        $(`#${e.target.id}reward`).val()) {
+          const taskObject = {
             requirements: $(`#${e.target.id}task`).val(),
             reward: $(`#${e.target.id}reward`).val(),
             pokestop_id: +e.target.id,
@@ -199,20 +201,23 @@ getPokestops()
           addTask(taskObject)
           .then(result => {
             // after submitting the new task, immediately GET that task from the db and print it to the DOM
-            return getOnePokestop(result.pokestopId);
+            return getPokestops();
           })
-          .then(newPokestopArray => {
+          .then(allPokestops => {
             map.closePopup();
-            printPokestops(newPokestopArray, mapPropertiesObject, false, false);
+            Regular.clearLayers();
+            Active.clearLayers();
+            printPokestops(allPokestops, mapPropertiesObject, false, false);
           });
         }
       });
 
       // The lat/long values are inserted into the add-new-pokestop form fields on map click
       map.on('click', (e) => {
+        console.log('e of any click:',e);
         $("#add-new-pokestop-latitude").val(e.latlng.lat);
         $("#add-new-pokestop-longitude").val(e.latlng.lng);
-
+        // put yellow pin onto the map here
       });
 
     }); // end of document.ready function

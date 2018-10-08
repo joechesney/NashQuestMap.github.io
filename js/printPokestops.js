@@ -10,7 +10,8 @@ export function printPokestops(pokestopsArray, mapPropertiesObject, searchBool, 
   // -If newPokestopBool is true, directly add pokestop to map, instead of layerGroup
   pokestopsArray.forEach(pokestop => {
     if (pokestop.active === 'true') {
-      L.marker([pokestop.latitude, pokestop.longitude], { icon: mapPropertiesObject.redPin })
+      L.marker([pokestop.latitude, pokestop.longitude],
+        { icon: mapPropertiesObject.redPin})
         .bindPopup(`
       <span><b>${pokestop.name}</b></span><br>
       <span>Task: ${pokestop.requirements}</span><br>
@@ -22,7 +23,7 @@ export function printPokestops(pokestopsArray, mapPropertiesObject, searchBool, 
         .addTo(searchBool ? mapPropertiesObject.SearchResults : mapPropertiesObject.Active);
     } else if ((pokestop.active === 'false' && !searchBool) || newPokestopBool) {
       L.marker([pokestop.latitude, pokestop.longitude],
-        { icon: mapPropertiesObject.bluePin, opacity: 0.6 })
+        { icon: mapPropertiesObject.bluePin, opacity: 0.6, title: pokestop.id })
         .bindPopup(`
         <br>
         <div class="addTask">
@@ -35,4 +36,6 @@ export function printPokestops(pokestopsArray, mapPropertiesObject, searchBool, 
         .addTo(mapPropertiesObject.Regular);
     }
   });
+  // Object.keys(mapPropertiesObject.Regular._layers).map(key => console.log('layer:',mapPropertiesObject.Regular._layers[key]));
+
 }
