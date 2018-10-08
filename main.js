@@ -22,13 +22,14 @@ const redPin = L.icon({
   popupAnchor: [-7, -40],  // point from which the popup should open relative to the iconAnchor
   tooltipAnchor: [10, -20]
 });
-//
+
+// These are the 3 layerGroups that hold pin associations for the map
 const Regular = L.layerGroup();
 const Active = L.layerGroup();
 const SearchResults = L.layerGroup();
 
-// This object is used just to pass these variables to the printPokestops function
-let mapPropertiesObject = { bluePin, redPin, Regular, Active, SearchResults };
+// This object is used just to pass these variables to the printPokestops function, and other functions
+const mapPropertiesObject = { bluePin, redPin, Regular, Active, SearchResults };
 
 getPokestops()
   .then(allPokestops => {
@@ -151,22 +152,27 @@ getPokestops()
     $("#reward-search").on("keyup", function () {
 
       // On each keystroke in the search input, a GET request is sent, and several actions happen:
-      // 1. The previous search results are cleared
-      // 2.
+      // 1. The previous search results are cleared from its layerGroup
+      // 2. The Active and Regular layerGroups are hidden from the map
+      // 3. The search results are added the the layerGroup, then added to the map
       if($("#reward-search").val()){
         rewardSearch($("#reward-search").val())
         .then(results => {
-          mapPropertiesObject.SearchResults.clearLayers(); // This method removes all pins from the layerGroup
-          mapPropertiesObject.Active.removeFrom(map); // This method just hides the selected Layer, without deleting it's pin associations
-          mapPropertiesObject.Regular.removeFrom(map);
+          SearchResults.clearLayers(); // This method removes all pins from the layerGroup
+          Active.removeFrom(map); // This method just hides the selected Layer, without deleting it's pin associations
+          Regular.removeFrom(map);
           printPokestops(results, mapPropertiesObject, true, false);
           SearchResults.addTo(map);
         });
       } else {
+        // This runs when the search bar is cleared:
+        // 1. The Active and Regular laygerGroups are shown on the map again
+        // 2. The SearchResults layerGroup is hidden from the map
+        // 3. The SearchResults layerGroup is cleared: It's pin associations are removed from the layerGroup
         Active.addTo(map);
         Regular.addTo(map);
         SearchResults.removeFrom(map);
-        mapPropertiesObject.SearchResults.clearLayers();
+        SearchResults.clearLayers();
       }
     });
 
@@ -206,6 +212,7 @@ getPokestops()
       map.on('click', (e) => {
         $("#add-new-pokestop-latitude").val(e.latlng.lat);
         $("#add-new-pokestop-longitude").val(e.latlng.lng);
+
       });
 
     }); // end of document.ready function
