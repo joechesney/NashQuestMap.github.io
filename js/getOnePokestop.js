@@ -6,8 +6,8 @@ export function getOnePokestop(pokestopId) {
   return new Promise((resolve, reject)=>{
     $.get(`${secrets().serverUrl}/getOnePokestop/${pokestopId}`)
     .then(result=>{
-      if(result.pokestop.length > 0){
-        resolve(result.pokestop);
+      if(result.length > 0){
+        resolve(result);
       }
       else {
         let err = new Error();

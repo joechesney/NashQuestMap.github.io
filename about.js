@@ -9,10 +9,9 @@ $(document).on("click", e => {
     };
     sendChangeRequestEmail(changeRequestObject)
     .then(response => {
-      console.log('response: ',response);
       $(`#user-email`).val("");
       $(`#changes-requested`).val("");
-      location.reload();
+      alert("Your message has been received. Thank you.")
     });
   }
 });

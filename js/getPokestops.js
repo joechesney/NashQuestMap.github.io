@@ -15,3 +15,11 @@ export function getPokestops() {
     });
   });
 }
+
+// export function getPokestops() {
+//   return new Promise((resolve, reject)=>{
+//     $.get(`${secrets().serverUrl}/getPokestops`)
+//     .done(pokestopsArray => {if(pokestopsArray.length > 0) resolve(pokestopsArray);})
+//     .fail(err => reject(err));
+//   });
+// }
