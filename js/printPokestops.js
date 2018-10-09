@@ -27,14 +27,16 @@ export function printPokestops(pokestopsArray, mapPropertiesObject, searchBool, 
         .bindPopup(`
         <br>
         <div class="addTask">
-          <p><b>${pokestop.name}</b></p>
+          <p><b>${pokestop.name}</b><span id="">x</span></p>
           <input id="${pokestop.id}task" class="input is-small" type="text" placeholder="task" required>
           <input id="${pokestop.id}reward" class="input is-small" type="text" placeholder="reward" required>
-          <input class="addTaskButton button is-small is-info is-outlined" id="${pokestop.id}" type="button" value="add task">
+          <input class="addTaskButton button is-small is-info" id="${pokestop.id}" type="button" value="add task">
+          <a class="report-pokestop " href="" alt="report this pokestop"> report pokestop </a>
         </div>
       `)
         .addTo(mapPropertiesObject.Regular);
     }
   });
+  // <input class="report-pokestop button is-small is-danger is-outlined" id="${pokestop.id}" type="button" value="report stop">
 
 }
