@@ -18,25 +18,25 @@ All Pokestops are user-submitted, and are neither guaranteed to be complete, nor
 
 ### Reading the map
 1. By default, the map is centered on Centennial Park in Nashville, Tn. This may be changed in a future update.
-2. Press the 'my location' symbol in the top left of the map to center the map on your device's current location.
-3. All pokestops by default will display as transparent blue pins on the map.
+2. Press the 'my location' symbol in the top left of the map to re-center the map on your device's current location.
+3. All pokestops by default will display as blue pins on the map.
 4. If a pokestop has had a research task submitted TODAY, then it will display as a red pin, and the reward will be a permanent tooltip displayed attached to that pokestop pin.
 5. Research tasks, right now, cannot be overwritten. Once submitted, the pop-up box will display that task and that task only.
-6. That's all this site does. It just shows you, quickly, any valuable research rewards that have been submitted today.
+6. That's what this site does: It shows you, quickly, any valuable research rewards that have been submitted today.
 
 ### Submitting a research task
-1. Find the pokestop that has the task, click it, and an info window pop-up box should appear attached to the pin.
-2. Fill out the "requirements" and the "reward" of the research task, then press the "submit" button.
-3. The page will reload.
-4. That's it! The pokestop you submitted to will now display red, with the task reward visible.
+1. Find the pokestop that has the task, click it, and a pop-up box should appear, attached to the pin.
+2. Fill out the "requirements" and the "reward" of the research task, then press the "submit" button. Give it a second to load.
+3. That's it! The pokestop you submitted to will now display red, with the task reward visible.
 
 ### Submitting a new pokestop
-1. Read the "Important Notes" section of this documentation below.
-2. Just click on the pokestops location on the map, the site will auto-fill the latitude and longitude of the click location into the form fields at the bottom of the screen.
+1. Pokestops are currently restricted to the middle Tennessee area. Attempting to submit a pokestop outside of that area will send an error message, and reload the page.
+2. First, click the map control in the bottom left: [./images/add-pokestop.png =15x15](./images/add-pokestop.png =15x15) . This will reveal the form to add a new pokestop.
+3. Click on the pokestops location on the map, and a yellow pin will appear on the map in the location you clicked. The site will auto-fill the latitude and longitude of the click location into the form fields at the bottom of the screen.
 3. Type in the name of the pokestop in the correct form input.
 4. Hit submit.
-5. The page will reload.
-6. That's it! Your new pokestop will be displayed.
+5. Give it a second to load.
+6. That's it! Your new pokestop will be displayed on the map instantly.
 
 ### Important Notes:
 There is a restriction on the database to only allow pokestops to be submitted if they are within these approximate bounds: ![Map of pokestop boundaries](./images/boundary-map.jpg?raw=true "Boundary Map")

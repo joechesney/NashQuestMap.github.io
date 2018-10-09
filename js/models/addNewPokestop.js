@@ -9,6 +9,10 @@ export function addNewPokestop(newPokestopObject) {
     })
     .fail(error => {
       console.log('error: ',error);
+      alert("That pokestop is outside of the allowed submission area. This page will be reloaded in 2 seconds.");
+      window.setTimeout(() => {
+        location.reload();
+      }, 2000);
       reject(error);
     });
   });

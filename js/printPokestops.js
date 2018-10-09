@@ -9,29 +9,32 @@
 'use strict';
 export function printPokestops(pokestopsArray, mapPropertiesObject, searchBool, newPokestopBool) {
   pokestopsArray.forEach(pokestop => {
+
     if (pokestop.active === 'true') {
-      L.marker([pokestop.latitude, pokestop.longitude],
-        { icon: mapPropertiesObject.redPin})
+      // red pins
+      L.marker([pokestop.latitude, pokestop.longitude], { icon: mapPropertiesObject.redPin})
         .bindPopup(`
-      <span><b>${pokestop.name}</b></span><br>
-      <span>Task: ${pokestop.requirements}</span><br>
-      <span>Reward: ${pokestop.reward}</span><br>
-      `)
+        <span><b>${pokestop.name}</b></span><br>
+        <span>Task: ${pokestop.requirements}</span><br>
+        <span>Reward: ${pokestop.reward}</span><br>
+        <a class="report-task report " href="task" alt="report this pokestop" title="${pokestop.task_id}"> report task </a>
+        `)
         .bindTooltip(`
         <span>${pokestop.reward}</span>
         `, { permanent: true })
         .addTo(searchBool ? mapPropertiesObject.SearchResults : mapPropertiesObject.Active);
     } else if ((pokestop.active === 'false' && !searchBool) || newPokestopBool) {
+      // blue pins
       L.marker([pokestop.latitude, pokestop.longitude],
         { icon: mapPropertiesObject.bluePin, opacity: 0.6, title: pokestop.id })
         .bindPopup(`
         <br>
         <div class="addTask">
-          <p><b>${pokestop.name}</b><span id="">x</span></p>
+          <p><b>${pokestop.name}</b></p>
           <input id="${pokestop.id}task" class="input is-small" type="text" placeholder="task" required>
           <input id="${pokestop.id}reward" class="input is-small" type="text" placeholder="reward" required>
           <input class="addTaskButton button is-small is-info" id="${pokestop.id}" type="button" value="add task">
-          <a class="report-pokestop " href="" alt="report this pokestop"> report pokestop </a>
+          <a class="report-pokestop report " href="pokestop" alt="report this pokestop" title="${pokestop.id}"> report pokestop </a>
         </div>
       `)
         .addTo(mapPropertiesObject.Regular);

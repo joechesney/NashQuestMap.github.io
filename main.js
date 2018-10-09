@@ -5,6 +5,7 @@ import { rewardSearch } from './js/models/rewardSearch.js';
 import { addNewPokestop } from './js/models/addNewPokestop.js';
 import { getOnePokestop } from './js/models/getOnePokestop.js';
 import { addTask } from './js/models/addTask.js';
+import { sendReport } from './js/models/sendReport.js';
 import { printPokestops } from './js/printPokestops.js';
 
 
@@ -147,7 +148,7 @@ getPokestops()
   /***** Event Listeners ******/
   /****************************/
 
-  // Add New Pokestop form
+  /***** Add New Pokestop form *****/
   $("#add-new-pokestop-button").on("click", (e) => {
     e.preventDefault();
     let newPokeStopObject = {
@@ -169,7 +170,8 @@ getPokestops()
     });
   });
 
-  // Search input form
+
+  /***** Search input form *****/
   $("#reward-search").on("keyup", function () {
 
     // On each keystroke in the search input, a GET request is sent, and several actions happen:
@@ -204,10 +206,13 @@ getPokestops()
 
     // hide the add-new-pokestop form to make it togglable
     $("#add-new-pokestop-form-div").hide();
+    $("#add-new-pokestop-latitude").hide();
+    $("#add-new-pokestop-longitude").hide();
 
-    // on-document listener for the dynamic addTask buttons on pin popups
+
     $(document).on("click", e => {
 
+      /***** On-document listener for the dynamic addTask buttons on pin popups *****/
       if ($(e.target).hasClass("addTaskButton") &&
         $(`#${e.target.id}task`).val() &&
         $(`#${e.target.id}reward`).val()) {
@@ -229,6 +234,22 @@ getPokestops()
           Active.clearLayers();
           newPokestopLayer.clearLayers();
           printPokestops(allPokestops, mapPropertiesObject, false, false);
+        });
+      }
+
+
+      /***** Report a task of pokestop *****/
+      if(($(e.target).hasClass("report"))){
+        e.preventDefault();
+        const reportObject = {
+          pathname: e.target.pathname,
+          entry_id: +e.target.title
+        };
+        console.log('e',e);
+        console.log('reportObject ',reportObject);
+        sendReport(reportObject)
+        .then(result =>{
+          alert("Report received. Thank you.");
         });
       }
     });
