@@ -242,7 +242,7 @@ getPokestops()
       if(($(e.target).hasClass("report"))){
         e.preventDefault();
         const reportObject = {
-          pathname: e.target.pathname,
+          entry_type: e.target.pathname,
           entry_id: +e.target.title
         };
         console.log('e',e);
