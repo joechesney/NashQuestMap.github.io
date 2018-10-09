@@ -6,7 +6,7 @@ If you wish to see the SERVER-SIDE code of this project: [https://github.com/joe
 
 # NashQuestMap.github.io
 
-This is a project designed to help Pokemon Go players sshare daily task rewards. The entire project is designed to be as simple as possible. No logins. No menus. No fluff. No frills. Just a map, with all the pokestops, and the ability to submit daily quests at each pokestop.
+This is a project designed to help Pokemon Go players share daily task rewards. The entire project is designed to be as simple as possible. No logins. No menus. No fluff. No frills. Just a map, with all the pokestops, and the ability to submit daily quests at each pokestop.
 
 This project started in July 2018, and was released on September 8th, 2018. It is currently still receiving updates.
 

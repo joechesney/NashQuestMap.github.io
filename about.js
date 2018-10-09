@@ -1,6 +1,6 @@
 
 'use strict';
-import { sendChangeRequestEmail } from './js/sendChangeRequestEmail.js';
+import { sendChangeRequestEmail } from './js/models/sendChangeRequestEmail.js';
 $(document).on("click", e => {
   if(e.target.id === "submit-change-request"){
     let changeRequestObject = {
