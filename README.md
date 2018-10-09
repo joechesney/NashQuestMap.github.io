@@ -38,5 +38,13 @@ All Pokestops are user-submitted, and are neither guaranteed to be complete, nor
 5. Give it a second to load.
 6. That's it! Your new pokestop will be displayed on the map instantly.
 
+### Reporting inappropriate content
+1. My website is no safe-haven from trolls. Inappropriate content being submitted does happen.
+2. Pokestops and tasks have respective links to send a report to me.
+3. Report links are located inside the popup for pokestops and tasks.
+4. I will respond as soon as possible to reports.
+5. Reports are manually removed from the database, as to combat false reports.
+6. Reports may take up to a few hours to be removed from the database.
+
 ### Important Notes:
 There is a restriction on the database to only allow pokestops to be submitted if they are within these approximate bounds: ![Map of pokestop boundaries](./images/boundary-map.jpg?raw=true "Boundary Map")
