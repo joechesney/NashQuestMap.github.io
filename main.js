@@ -202,7 +202,7 @@ getPokestops()
   $(document).ready(function () {
 
     // map pins are not created in the DOM until the document is ready
-    printPokestops(allPokestops, mapPropertiesObject, false, false);
+    printPokestops(allPokestops, mapPropertiesObject, false, false); // what if the database call is not ready when the document is ready
 
     // hide the add-new-pokestop form to make it togglable
     $("#add-new-pokestop-form-div").hide();
@@ -236,7 +236,7 @@ getPokestops()
           printPokestops(allPokestops, mapPropertiesObject, false, false);
         });
       }
-
+      // Maybe have getPokestops run on a setTimeout
 
       /***** Report a task of pokestop *****/
       if(($(e.target).hasClass("report"))){
@@ -245,8 +245,6 @@ getPokestops()
           entry_type: e.target.pathname,
           entry_id: +e.target.title
         };
-        console.log('e',e);
-        console.log('reportObject ',reportObject);
         sendReport(reportObject)
         .then(result =>{
           alert("Report received. Thank you.");
@@ -254,7 +252,7 @@ getPokestops()
       }
     });
 
-
+    // use a js variable to store the lat/long values
 
     // The lat/long values are inserted into the add-new-pokestop form fields on map click
     map.on('click', (e) => {
