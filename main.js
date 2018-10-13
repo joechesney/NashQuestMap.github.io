@@ -45,6 +45,7 @@ const newPokestopLayer = L.layerGroup();
 // This object is used just to pass these variables to the printPokestops function, and other functions
 const mapPropertiesObject = { bluePin, redPin, Regular, Active, SearchResults, newPokestopLayer };
 
+$(document).ready(function () {
 getPokestops()
 .then(allPokestops => {
 
@@ -148,26 +149,33 @@ getPokestops()
   /***** Event Listeners ******/
   /****************************/
 
+  let latitude;
+  let longitude;
+
   /***** Add New Pokestop form *****/
   $("#add-new-pokestop-button").on("click", (e) => {
     e.preventDefault();
-    let newPokeStopObject = {
-      name: $(`#add-new-pokestop-name`).val(),
-      latitude: +$(`#add-new-pokestop-latitude`).val(),
-      longitude: +$(`#add-new-pokestop-longitude`).val(),
-      // date_submitted: accomplished with SQL
-    };
-    addNewPokestop(newPokeStopObject)
-    .then(result => {
-      $(`#add-new-pokestop-name`).val("");
-      $(`#add-new-pokestop-latitude`).val("");
-      $(`#add-new-pokestop-longitude`).val("");
-      getOnePokestop(result.pokestopId)
-      .then(newPokestopArray => {
-        newPokestopLayer.clearLayers();
-        printPokestops(newPokestopArray, mapPropertiesObject, false, true);
+    if(latitude, longitude){
+      let newPokeStopObject = {
+        name: $(`#add-new-pokestop-name`).val(),
+        latitude, // these are declared at the top of the event listeners section
+        longitude, // and are given value with the map listener farther down in this file
+        // date_submitted: accomplished with SQL
+      };
+      addNewPokestop(newPokeStopObject)
+      .then(result => {
+        $(`#add-new-pokestop-name`).val("");
+        $(`#add-new-pokestop-latitude`).val("");
+        $(`#add-new-pokestop-longitude`).val("");
+        getOnePokestop(result.pokestopId)
+        .then(newPokestopArray => {
+          newPokestopLayer.clearLayers();
+          printPokestops(newPokestopArray, mapPropertiesObject, false, true);
+          latitude = undefined;
+          longitude = undefined;
+        });
       });
-    });
+    } else alert("You have not selected a place on the map.");
   });
 
 
@@ -199,7 +207,6 @@ getPokestops()
     }
   });
 
-  $(document).ready(function () {
 
     // map pins are not created in the DOM until the document is ready
     printPokestops(allPokestops, mapPropertiesObject, false, false); // what if the database call is not ready when the document is ready
@@ -256,19 +263,18 @@ getPokestops()
 
     // The lat/long values are inserted into the add-new-pokestop form fields on map click
     map.on('click', (e) => {
-      // console.log('e of any click:',e);
-      if ($("#add-new-pokestop-form-div").is(":visible")) {
+      latitude = e.latlng.lat;
+      longitude = e.latlng.lng;
+      if ($("#add-new-pokestop-form-div").is(":visible") && (latitude && longitude)) {
         newPokestopLayer.clearLayers();
-        $("#add-new-pokestop-latitude").val(e.latlng.lat);
-        $("#add-new-pokestop-longitude").val(e.latlng.lng);
-        L.marker([e.latlng.lat, e.latlng.lng],
+        L.marker([latitude, longitude],
           { icon: yellowPin, opacity: 0.6 })
           .addTo(newPokestopLayer);
         newPokestopLayer.addTo(map);
       }
     });
 
-  }); // end of document.ready function
 
-}); // end of getPokestops function
+  }); // end of getPokestops function
+}); // end of document.ready function
 
