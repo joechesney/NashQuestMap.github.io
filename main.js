@@ -44,7 +44,7 @@ const newPokestopLayer = L.layerGroup();
 
 // This object is used just to pass these variables to the printPokestops function, and other functions
 const mapPropertiesObject = { bluePin, redPin, Regular, Active, SearchResults, newPokestopLayer };
-
+let allowNewPokestop = false;
 $(document).ready(function () {
 getPokestops()
 .then(allPokestops => {
@@ -110,6 +110,7 @@ getPokestops()
         // when the control is clicked, the two forms are toggled
         $("#search-form-div").toggle();
         $("#add-new-pokestop-form-div").toggle();
+        allowNewPokestop = !allowNewPokestop;
       };
       return img;
     }
@@ -151,7 +152,7 @@ getPokestops()
 
   let latitude;
   let longitude;
-
+  
   /***** Add New Pokestop form *****/
   $("#add-new-pokestop-button").on("click", (e) => {
     e.preventDefault();
@@ -263,9 +264,10 @@ getPokestops()
 
     // The lat/long values are inserted into the add-new-pokestop form fields on map click
     map.on('click', (e) => {
+
       latitude = e.latlng.lat;
       longitude = e.latlng.lng;
-      if ($("#add-new-pokestop-form-div").is(":visible") && (latitude && longitude)) {
+      if ( allowNewPokestop && (latitude && longitude)) {
         newPokestopLayer.clearLayers();
         L.marker([latitude, longitude],
           { icon: yellowPin, opacity: 0.6 })
@@ -273,7 +275,6 @@ getPokestops()
         newPokestopLayer.addTo(map);
       }
     });
-
 
   }); // end of getPokestops function
 }); // end of document.ready function
